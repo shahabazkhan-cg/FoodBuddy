@@ -1,0 +1,588 @@
+  $ /Users/skn774n/.nvm/versions/node/v20.19.4/bin/node -p require.resolve(     "react-native/scripts/react_native_pods.rb",     {paths: [process.argv[1]]},   ) /Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/ios
+  /Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/node_modules/react-native/scripts/react_native_pods.rb
+Found 1 module for target `MobileApp`
+link_native_modules! {ios_packages: [{configurations: [], name: "react-native-safe-area-context", root: "/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/node_modules/react-native-safe-area-context", path: "../node_modules/react-native-safe-area-context", podspec_path: "/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/node_modules/react-native-safe-area-context/react-native-safe-area-context.podspec", script_phases: []}], ios_project_root_path: "/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/ios", react_native_path: "../node_modules/react-native"}
+Auto-linking React Native module for target `MobileApp`: react-native-safe-area-context
+Framework build type is static library
+[ReactNativeDependencies] Setting up ReactNativeDependencies...
+[ReactNativeDependencies] Building from source: true
+[ReactNativeDependencies] Source: 
+[ReactNativeCore] Setting up ReactNativeCore...
+[ReactNativeCore] Building from source: true
+[ReactNativeCore] Source: 
+Configuring the target with the New Architecture
+  $ /Users/skn774n/.nvm/versions/node/v20.19.4/bin/node ./../node_modules/react-native/scripts/generate-codegen-artifacts.js -p /Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/ios/.. -o /Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/ios -t ios
+  [36m[1m[Codegen][0m Analyzing /Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/package.json[0m
+  [36m[1m[Codegen][0m [33mSearching for codegen-enabled libraries in the app.[0m
+  [36m[1m[Codegen][0m [33mThe "codegenConfig" field is not defined in package.json. Assuming there is nothing to generate at the app level.[0m
+  [36m[1m[Codegen][0m [33mSearching for codegen-enabled libraries in react-native.config.js[0m
+  [36m[1m[Codegen][0m Found react-native-safe-area-context[0m
+  [36m[1m[Codegen][0m Processing safeareacontext[0m
+  [36m[1m[Codegen][0m [33mSearching for podspec in the project dependencies.[0m
+  [36m[1m[Codegen][0m Supported Apple platforms: ios, macos, tvos, visionos for safeareacontext[0m
+  [36m[1m[Codegen][0m Generating Native Code for safeareacontext - ios[0m
+  [36m[1m[Codegen][0m Generated artifacts: /Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/ios/build/generated/ios[0m
+  [36m[1m[Codegen][0m Generating RCTThirdPartyComponentsProvider.h[0m
+  [36m[1m[Codegen][0m Generated artifact: /Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/ios/build/generated/ios/RCTThirdPartyComponentsProvider.h[0m
+  [36m[1m[Codegen][0m Generating RCTThirdPartyComponentsProvider.mm[0m
+  [36m[1m[Codegen][0m Generated artifact: /Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/ios/build/generated/ios/RCTThirdPartyComponentsProvider.mm[0m
+  [36m[1m[Codegen][0m Generating RCTModulesProvider.h[0m
+  [36m[1m[Codegen][0m Generated artifact: /Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/ios/build/generated/ios/RCTModuleProviders.h[0m
+  [36m[1m[Codegen][0m Generating RCTModuleProviders.mm[0m
+  [36m[1m[Codegen][0m Generated artifact: /Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/ios/build/generated/ios/RCTModuleProviders.mm[0m
+  [36m[1m[Codegen][0m Generating RCTAppDependencyProvider[0m
+  [36m[1m[Codegen][0m Generated artifact: /Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/ios/build/generated/ios/RCTAppDependencyProvider.h[0m
+  [36m[1m[Codegen][0m Generated artifact: /Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/ios/build/generated/ios/RCTAppDependencyProvider.mm[0m
+  [36m[1m[Codegen][0m Generated podspec: /Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/ios/build/generated/ios/ReactAppDependencyProvider.podspec[0m
+  [36m[1m[Codegen][0m Generated podspec: /Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/ios/build/generated/ios/ReactCodegen.podspec[0m
+  [36m[1m[Codegen][0m [33mDone.[0m
+[36m[1m[Codegen][0m Analyzing /Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/package.json[0m
+[36m[1m[Codegen][0m [33mSearching for codegen-enabled libraries in the app.[0m
+[36m[1m[Codegen][0m [33mThe "codegenConfig" field is not defined in package.json. Assuming there is nothing to generate at the app level.[0m
+[36m[1m[Codegen][0m [33mSearching for codegen-enabled libraries in react-native.config.js[0m
+[36m[1m[Codegen][0m Found react-native-safe-area-context[0m
+[36m[1m[Codegen][0m Processing safeareacontext[0m
+[36m[1m[Codegen][0m [33mSearching for podspec in the project dependencies.[0m
+[36m[1m[Codegen][0m Supported Apple platforms: ios, macos, tvos, visionos for safeareacontext[0m
+[36m[1m[Codegen][0m Generating Native Code for safeareacontext - ios[0m
+[36m[1m[Codegen][0m Generated artifacts: /Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/ios/build/generated/ios[0m
+[36m[1m[Codegen][0m Generating RCTThirdPartyComponentsProvider.h[0m
+[36m[1m[Codegen][0m Generated artifact: /Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/ios/build/generated/ios/RCTThirdPartyComponentsProvider.h[0m
+[36m[1m[Codegen][0m Generating RCTThirdPartyComponentsProvider.mm[0m
+[36m[1m[Codegen][0m Generated artifact: /Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/ios/build/generated/ios/RCTThirdPartyComponentsProvider.mm[0m
+[36m[1m[Codegen][0m Generating RCTModulesProvider.h[0m
+[36m[1m[Codegen][0m Generated artifact: /Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/ios/build/generated/ios/RCTModuleProviders.h[0m
+[36m[1m[Codegen][0m Generating RCTModuleProviders.mm[0m
+[36m[1m[Codegen][0m Generated artifact: /Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/ios/build/generated/ios/RCTModuleProviders.mm[0m
+[36m[1m[Codegen][0m Generating RCTAppDependencyProvider[0m
+[36m[1m[Codegen][0m Generated artifact: /Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/ios/build/generated/ios/RCTAppDependencyProvider.h[0m
+[36m[1m[Codegen][0m Generated artifact: /Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/ios/build/generated/ios/RCTAppDependencyProvider.mm[0m
+[36m[1m[Codegen][0m Generated podspec: /Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/ios/build/generated/ios/ReactAppDependencyProvider.podspec[0m
+[36m[1m[Codegen][0m Generated podspec: /Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/ios/build/generated/ios/ReactCodegen.podspec[0m
+[36m[1m[Codegen][0m [33mDone.[0m
+  Preparing
+
+Analyzing dependencies
+
+Inspecting targets to integrate
+  Using `ARCHS` setting to build architectures of target `Pods-MobileApp`: (``)
+
+Fetching external sources
+-> Fetching podspec for `DoubleConversion` from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`
+-> Fetching podspec for `FBLazyVector` from `../node_modules/react-native/Libraries/FBLazyVector`
+-> Fetching podspec for `RCT-Folly` from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`
+-> Fetching podspec for `RCTDeprecation` from `../node_modules/react-native/ReactApple/Libraries/RCTFoundation/RCTDeprecation`
+-> Fetching podspec for `RCTRequired` from `../node_modules/react-native/Libraries/Required`
+-> Fetching podspec for `RCTTypeSafety` from `../node_modules/react-native/Libraries/TypeSafety`
+-> Fetching podspec for `React` from `../node_modules/react-native/`
+-> Fetching podspec for `React-Core` from `../node_modules/react-native/`
+-> Fetching podspec for `React-CoreModules` from `../node_modules/react-native/React/CoreModules`
+-> Fetching podspec for `React-Fabric` from `../node_modules/react-native/ReactCommon`
+-> Fetching podspec for `React-FabricComponents` from `../node_modules/react-native/ReactCommon`
+-> Fetching podspec for `React-FabricImage` from `../node_modules/react-native/ReactCommon`
+-> Fetching podspec for `React-ImageManager` from `../node_modules/react-native/ReactCommon/react/renderer/imagemanager/platform/ios`
+-> Fetching podspec for `React-Mapbuffer` from `../node_modules/react-native/ReactCommon`
+-> Fetching podspec for `React-NativeModulesApple` from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`
+-> Fetching podspec for `React-RCTActionSheet` from `../node_modules/react-native/Libraries/ActionSheetIOS`
+-> Fetching podspec for `React-RCTAnimation` from `../node_modules/react-native/Libraries/NativeAnimation`
+-> Fetching podspec for `React-RCTAppDelegate` from `../node_modules/react-native/Libraries/AppDelegate`
+-> Fetching podspec for `React-RCTBlob` from `../node_modules/react-native/Libraries/Blob`
+-> Fetching podspec for `React-RCTFBReactNativeSpec` from `../node_modules/react-native/React`
+-> Fetching podspec for `React-RCTFabric` from `../node_modules/react-native/React`
+-> Fetching podspec for `React-RCTImage` from `../node_modules/react-native/Libraries/Image`
+-> Fetching podspec for `React-RCTLinking` from `../node_modules/react-native/Libraries/LinkingIOS`
+-> Fetching podspec for `React-RCTNetwork` from `../node_modules/react-native/Libraries/Network`
+-> Fetching podspec for `React-RCTRuntime` from `../node_modules/react-native/React/Runtime`
+-> Fetching podspec for `React-RCTSettings` from `../node_modules/react-native/Libraries/Settings`
+-> Fetching podspec for `React-RCTText` from `../node_modules/react-native/Libraries/Text`
+-> Fetching podspec for `React-RCTVibration` from `../node_modules/react-native/Libraries/Vibration`
+-> Fetching podspec for `React-RuntimeApple` from `../node_modules/react-native/ReactCommon/react/runtime/platform/ios`
+-> Fetching podspec for `React-RuntimeCore` from `../node_modules/react-native/ReactCommon/react/runtime`
+-> Fetching podspec for `React-RuntimeHermes` from `../node_modules/react-native/ReactCommon/react/runtime`
+-> Fetching podspec for `React-callinvoker` from `../node_modules/react-native/ReactCommon/callinvoker`
+-> Fetching podspec for `React-cxxreact` from `../node_modules/react-native/ReactCommon/cxxreact`
+-> Fetching podspec for `React-debug` from `../node_modules/react-native/ReactCommon/react/debug`
+-> Fetching podspec for `React-defaultsnativemodule` from `../node_modules/react-native/ReactCommon/react/nativemodule/defaults`
+-> Fetching podspec for `React-domnativemodule` from `../node_modules/react-native/ReactCommon/react/nativemodule/dom`
+-> Fetching podspec for `React-featureflags` from `../node_modules/react-native/ReactCommon/react/featureflags`
+-> Fetching podspec for `React-featureflagsnativemodule` from `../node_modules/react-native/ReactCommon/react/nativemodule/featureflags`
+-> Fetching podspec for `React-graphics` from `../node_modules/react-native/ReactCommon/react/renderer/graphics`
+-> Fetching podspec for `React-hermes` from `../node_modules/react-native/ReactCommon/hermes`
+-> Fetching podspec for `React-idlecallbacksnativemodule` from `../node_modules/react-native/ReactCommon/react/nativemodule/idlecallbacks`
+-> Fetching podspec for `React-jserrorhandler` from `../node_modules/react-native/ReactCommon/jserrorhandler`
+-> Fetching podspec for `React-jsi` from `../node_modules/react-native/ReactCommon/jsi`
+-> Fetching podspec for `React-jsiexecutor` from `../node_modules/react-native/ReactCommon/jsiexecutor`
+-> Fetching podspec for `React-jsinspector` from `../node_modules/react-native/ReactCommon/jsinspector-modern`
+-> Fetching podspec for `React-jsinspectorcdp` from `../node_modules/react-native/ReactCommon/jsinspector-modern/cdp`
+-> Fetching podspec for `React-jsinspectornetwork` from `../node_modules/react-native/ReactCommon/jsinspector-modern/network`
+-> Fetching podspec for `React-jsinspectortracing` from `../node_modules/react-native/ReactCommon/jsinspector-modern/tracing`
+-> Fetching podspec for `React-jsitooling` from `../node_modules/react-native/ReactCommon/jsitooling`
+-> Fetching podspec for `React-jsitracing` from `../node_modules/react-native/ReactCommon/hermes/executor/`
+-> Fetching podspec for `React-logger` from `../node_modules/react-native/ReactCommon/logger`
+-> Fetching podspec for `React-microtasksnativemodule` from `../node_modules/react-native/ReactCommon/react/nativemodule/microtasks`
+-> Fetching podspec for `React-oscompat` from `../node_modules/react-native/ReactCommon/oscompat`
+-> Fetching podspec for `React-perflogger` from `../node_modules/react-native/ReactCommon/reactperflogger`
+-> Fetching podspec for `React-performancetimeline` from `../node_modules/react-native/ReactCommon/react/performance/timeline`
+-> Fetching podspec for `React-rendererconsistency` from `../node_modules/react-native/ReactCommon/react/renderer/consistency`
+-> Fetching podspec for `React-renderercss` from `../node_modules/react-native/ReactCommon/react/renderer/css`
+-> Fetching podspec for `React-rendererdebug` from `../node_modules/react-native/ReactCommon/react/renderer/debug`
+-> Fetching podspec for `React-runtimeexecutor` from `../node_modules/react-native/ReactCommon/runtimeexecutor`
+-> Fetching podspec for `React-runtimescheduler` from `../node_modules/react-native/ReactCommon/react/renderer/runtimescheduler`
+-> Fetching podspec for `React-timing` from `../node_modules/react-native/ReactCommon/react/timing`
+-> Fetching podspec for `React-utils` from `../node_modules/react-native/ReactCommon/react/utils`
+-> Fetching podspec for `ReactAppDependencyProvider` from `build/generated/ios`
+-> Fetching podspec for `ReactCodegen` from `build/generated/ios`
+-> Fetching podspec for `ReactCommon` from `../node_modules/react-native/ReactCommon`
+-> Fetching podspec for `Yoga` from `../node_modules/react-native/ReactCommon/yoga`
+-> Fetching podspec for `boost` from `../node_modules/react-native/third-party-podspecs/boost.podspec`
+-> Fetching podspec for `fast_float` from `../node_modules/react-native/third-party-podspecs/fast_float.podspec`
+-> Fetching podspec for `fmt` from `../node_modules/react-native/third-party-podspecs/fmt.podspec`
+-> Fetching podspec for `glog` from `../node_modules/react-native/third-party-podspecs/glog.podspec`
+-> Fetching podspec for `hermes-engine` from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`
+  $ /Users/skn774n/.nvm/versions/node/v20.19.4/bin/node -p require.resolve(     "react-native",     {paths: [process.argv[1]]},     ) /Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/node_modules/react-native/sdks/hermes-engine
+  /Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/node_modules/react-native/index.js
+[Hermes] Using release tarball from URL: https://repo1.maven.org/maven2/com/facebook/react/react-native-artifacts/0.81.5/react-native-artifacts-0.81.5-hermes-ios-debug.tar.gz
+-> Fetching podspec for `react-native-safe-area-context` from `../node_modules/react-native-safe-area-context`
+
+Resolving dependencies of `Podfile`
+  CDN: trunk Relative path: CocoaPods-version.yml exists! Returning local because checking is only performed in repo update
+  CDN: trunk Relative path: all_pods_versions_a_9_3.txt exists! Returning local because checking is only performed in repo update
+  CDN: trunk Relative path: Specs/a/9/3/SocketRocket/0.7.1/SocketRocket.podspec.json exists! Returning local because checking is only performed in repo update
+  CDN: trunk Relative path: Specs/a/9/3/SocketRocket/0.7.1/SocketRocket.podspec.json exists! Returning local because checking is only performed in repo update
+  CDN: trunk Relative path: Specs/a/9/3/SocketRocket/0.7.1/SocketRocket.podspec.json exists! Returning local because checking is only performed in repo update
+
+Comparing resolved specification to the sandbox manifest
+  A DoubleConversion
+  A FBLazyVector
+  A RCT-Folly
+  A RCTDeprecation
+  A RCTRequired
+  A RCTTypeSafety
+  A React
+  A React-Core
+  A React-CoreModules
+  A React-Fabric
+  A React-FabricComponents
+  A React-FabricImage
+  A React-ImageManager
+  A React-Mapbuffer
+  A React-NativeModulesApple
+  A React-RCTActionSheet
+  A React-RCTAnimation
+  A React-RCTAppDelegate
+  A React-RCTBlob
+  A React-RCTFBReactNativeSpec
+  A React-RCTFabric
+  A React-RCTImage
+  A React-RCTLinking
+  A React-RCTNetwork
+  A React-RCTRuntime
+  A React-RCTSettings
+  A React-RCTText
+  A React-RCTVibration
+  A React-RuntimeApple
+  A React-RuntimeCore
+  A React-RuntimeHermes
+  A React-callinvoker
+  A React-cxxreact
+  A React-debug
+  A React-defaultsnativemodule
+  A React-domnativemodule
+  A React-featureflags
+  A React-featureflagsnativemodule
+  A React-graphics
+  A React-hermes
+  A React-idlecallbacksnativemodule
+  A React-jserrorhandler
+  A React-jsi
+  A React-jsiexecutor
+  A React-jsinspector
+  A React-jsinspectorcdp
+  A React-jsinspectornetwork
+  A React-jsinspectortracing
+  A React-jsitooling
+  A React-jsitracing
+  A React-logger
+  A React-microtasksnativemodule
+  A React-oscompat
+  A React-perflogger
+  A React-performancetimeline
+  A React-rendererconsistency
+  A React-renderercss
+  A React-rendererdebug
+  A React-runtimeexecutor
+  A React-runtimescheduler
+  A React-timing
+  A React-utils
+  A ReactAppDependencyProvider
+  A ReactCodegen
+  A ReactCommon
+  A SocketRocket
+  A Yoga
+  A boost
+  A fast_float
+  A fmt
+  A glog
+  A hermes-engine
+  A react-native-safe-area-context
+
+Downloading dependencies
+
+-> Installing DoubleConversion (1.1.6)
+  > Copying DoubleConversion from `/Users/skn774n/Library/Caches/CocoaPods/Pods/External/DoubleConversion/77f51e588bfe0e5c4fa6e9c580da62c6-cb417` to `Pods/DoubleConversion`
+
+-> Installing FBLazyVector (0.81.5)
+
+-> Installing RCT-Folly (2024.11.18.00)
+  > Copying RCT-Folly from `/Users/skn774n/Library/Caches/CocoaPods/Pods/External/RCT-Folly/5456eaeed7ed94cba6507f2b03c47dc1-846fd` to `Pods/RCT-Folly`
+
+-> Installing RCTDeprecation (0.81.5)
+
+-> Installing RCTRequired (0.81.5)
+
+-> Installing RCTTypeSafety (0.81.5)
+
+-> Installing React (0.81.5)
+
+-> Installing React-Core (0.81.5)
+
+-> Installing React-CoreModules (0.81.5)
+
+-> Installing React-Fabric (0.81.5)
+
+-> Installing React-FabricComponents (0.81.5)
+
+-> Installing React-FabricImage (0.81.5)
+
+-> Installing React-ImageManager (0.81.5)
+
+-> Installing React-Mapbuffer (0.81.5)
+
+-> Installing React-NativeModulesApple (0.81.5)
+
+-> Installing React-RCTActionSheet (0.81.5)
+
+-> Installing React-RCTAnimation (0.81.5)
+
+-> Installing React-RCTAppDelegate (0.81.5)
+
+-> Installing React-RCTBlob (0.81.5)
+
+-> Installing React-RCTFBReactNativeSpec (0.81.5)
+
+-> Installing React-RCTFabric (0.81.5)
+
+-> Installing React-RCTImage (0.81.5)
+
+-> Installing React-RCTLinking (0.81.5)
+
+-> Installing React-RCTNetwork (0.81.5)
+
+-> Installing React-RCTRuntime (0.81.5)
+
+-> Installing React-RCTSettings (0.81.5)
+
+-> Installing React-RCTText (0.81.5)
+
+-> Installing React-RCTVibration (0.81.5)
+
+-> Installing React-RuntimeApple (0.81.5)
+
+-> Installing React-RuntimeCore (0.81.5)
+
+-> Installing React-RuntimeHermes (0.81.5)
+
+-> Installing React-callinvoker (0.81.5)
+
+-> Installing React-cxxreact (0.81.5)
+
+-> Installing React-debug (0.81.5)
+
+-> Installing React-defaultsnativemodule (0.81.5)
+
+-> Installing React-domnativemodule (0.81.5)
+
+-> Installing React-featureflags (0.81.5)
+
+-> Installing React-featureflagsnativemodule (0.81.5)
+
+-> Installing React-graphics (0.81.5)
+
+-> Installing React-hermes (0.81.5)
+
+-> Installing React-idlecallbacksnativemodule (0.81.5)
+
+-> Installing React-jserrorhandler (0.81.5)
+
+-> Installing React-jsi (0.81.5)
+
+-> Installing React-jsiexecutor (0.81.5)
+
+-> Installing React-jsinspector (0.81.5)
+
+-> Installing React-jsinspectorcdp (0.81.5)
+
+-> Installing React-jsinspectornetwork (0.81.5)
+
+-> Installing React-jsinspectortracing (0.81.5)
+
+-> Installing React-jsitooling (0.81.5)
+
+-> Installing React-jsitracing (0.81.5)
+
+-> Installing React-logger (0.81.5)
+
+-> Installing React-microtasksnativemodule (0.81.5)
+
+-> Installing React-oscompat (0.81.5)
+
+-> Installing React-perflogger (0.81.5)
+
+-> Installing React-performancetimeline (0.81.5)
+
+-> Installing React-rendererconsistency (0.81.5)
+
+-> Installing React-renderercss (0.81.5)
+
+-> Installing React-rendererdebug (0.81.5)
+
+-> Installing React-runtimeexecutor (0.81.5)
+
+-> Installing React-runtimescheduler (0.81.5)
+
+-> Installing React-timing (0.81.5)
+
+-> Installing React-utils (0.81.5)
+
+-> Installing ReactAppDependencyProvider (0.81.5)
+
+-> Installing ReactCodegen (0.81.5)
+
+-> Installing ReactCommon (0.81.5)
+
+-> Installing SocketRocket (0.7.1)
+  > Copying SocketRocket from `/Users/skn774n/Library/Caches/CocoaPods/Pods/Release/SocketRocket/0.7.1-d4aab` to `Pods/SocketRocket`
+
+-> Installing Yoga (0.0.0)
+
+-> Installing boost (1.84.0)
+  > Copying boost from `/Users/skn774n/Library/Caches/CocoaPods/Pods/External/boost/5abf4351d19e14b47513e0fede2147e2-7e761` to `Pods/boost`
+
+-> Installing fast_float (8.0.0)
+  > Copying fast_float from `/Users/skn774n/Library/Caches/CocoaPods/Pods/External/fast_float/112fa79a55c193cdced1e49cf75b3454-b32c7` to `Pods/fast_float`
+
+-> Installing fmt (11.0.2)
+  > Copying fmt from `/Users/skn774n/Library/Caches/CocoaPods/Pods/External/fmt/4ba9726609ff00555176ecfb2faed015-a40bb` to `Pods/fmt`
+
+-> Installing glog (0.3.5)
+  > Copying glog from `/Users/skn774n/Library/Caches/CocoaPods/Pods/External/glog/2263bd123499e5b93b5efe24871be317-56839` to `Pods/glog`
+
+-> Installing hermes-engine (0.81.5)
+  > Copying hermes-engine from `/Users/skn774n/Library/Caches/CocoaPods/Pods/External/hermes-engine/9d8fdd77198478a7226e127ad580fbbb-9f4df` to `Pods/hermes-engine`
+
+-> Installing react-native-safe-area-context (5.8.0)
+  - Running pre install hooks
+  - Running pre integrate hooks
+
+Generating Pods project
+  - Creating Pods project
+  - Installing files into Pods project
+    - Adding source files
+    - Adding frameworks
+    - Adding libraries
+    - Adding resources
+    - Adding development pod helper files
+    - Linking headers
+  - Installing Pod Targets
+    - Installing target `DoubleConversion` iOS 15.1
+      - Generating module map file at `Pods/Target Support Files/DoubleConversion/DoubleConversion.modulemap`
+      - Generating umbrella header at `Pods/Target Support Files/DoubleConversion/DoubleConversion-umbrella.h`
+      - Generating dummy source at `Pods/Target Support Files/DoubleConversion/DoubleConversion-dummy.m`
+    - Installing target `FBLazyVector` iOS 15.1
+    - Installing target `RCT-Folly` iOS 15.1
+      - Generating Info.plist file at `Pods/Target Support Files/RCT-Folly/ResourceBundle-RCT-Folly_privacy-RCT-Folly-Info.plist`
+      - Generating module map file at `Pods/Target Support Files/RCT-Folly/RCT-Folly.modulemap`
+      - Generating umbrella header at `Pods/Target Support Files/RCT-Folly/RCT-Folly-umbrella.h`
+      - Generating dummy source at `Pods/Target Support Files/RCT-Folly/RCT-Folly-dummy.m`
+    - Installing target `RCTDeprecation` iOS 4.3
+      - Generating module map file at `Pods/Target Support Files/RCTDeprecation/RCTDeprecation.modulemap`
+      - Generating umbrella header at `Pods/Target Support Files/RCTDeprecation/RCTDeprecation-umbrella.h`
+      - Generating dummy source at `Pods/Target Support Files/RCTDeprecation/RCTDeprecation-dummy.m`
+    - Installing target `RCTRequired` iOS 15.1
+    - Installing target `RCTTypeSafety` iOS 15.1
+  CDN: trunk Relative path: CocoaPods-version.yml exists! Returning local because checking is only performed in repo update
+
+――― MARKDOWN TEMPLATE ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+
+### Command
+
+```
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/bin/pod install --verbose
+```
+
+### Report
+
+* What did you do?
+
+* What did you expect to happen?
+
+* What happened instead?
+
+
+### Stack
+
+```
+   CocoaPods : 1.15.2
+        Ruby : ruby 3.4.9 (2026-03-11 revision 76cca827ab) +PRISM [arm64-darwin25]
+    RubyGems : 3.6.9
+        Host : macOS 26.5.1 (25F80)
+       Xcode : 26.3 (17C529)
+         Git : git version 2.50.1
+Ruby lib dir : /Users/skn774n/.rvm/rubies/ruby-3.4.9/lib
+Repositories : trunk - CDN - https://cdn.cocoapods.org/
+```
+
+### Plugins
+
+```
+cocoapods-deintegrate : 1.0.5
+cocoapods-plugins     : 1.0.0
+cocoapods-search      : 1.0.1
+cocoapods-trunk       : 1.6.0
+cocoapods-try         : 1.2.0
+```
+
+### Podfile
+
+```ruby
+# Resolve react_native_pods.rb with node to allow for hoisting
+require Pod::Executable.execute_command('node', ['-p',
+  'require.resolve(
+    "react-native/scripts/react_native_pods.rb",
+    {paths: [process.argv[1]]},
+  )', __dir__]).strip
+
+platform :ios, min_ios_version_supported
+prepare_react_native_project!
+
+linkage = ENV['USE_FRAMEWORKS']
+if linkage != nil
+  Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
+  use_frameworks! :linkage => linkage.to_sym
+end
+
+target 'MobileApp' do
+  config = use_native_modules!
+
+  use_react_native!(
+    :path => config[:reactNativePath],
+    # An absolute path to your application root.
+    :app_path => "#{Pod::Config.instance.installation_root}/.."
+  )
+
+  post_install do |installer|
+    # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
+    react_native_post_install(
+      installer,
+      config[:reactNativePath],
+      :mac_catalyst_enabled => false,
+      # :ccache_enabled => true
+    )
+  end
+end
+```
+
+### Error
+
+```
+LoadError - cannot load such file -- kconv
+/Users/skn774n/.rvm/rubies/ruby-3.4.9/lib/ruby/3.4.0/bundled_gems.rb:82:in 'Kernel.require'
+/Users/skn774n/.rvm/rubies/ruby-3.4.9/lib/ruby/3.4.0/bundled_gems.rb:82:in 'block (2 levels) in Kernel#replace_require'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/CFPropertyList-3.0.8/lib/cfpropertylist/rbCFPropertyList.rb:3:in '<top (required)>'
+/Users/skn774n/.rvm/rubies/ruby-3.4.9/lib/ruby/3.4.0/bundled_gems.rb:82:in 'Kernel.require'
+/Users/skn774n/.rvm/rubies/ruby-3.4.9/lib/ruby/3.4.0/bundled_gems.rb:82:in 'block (2 levels) in Kernel#replace_require'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/CFPropertyList-3.0.8/lib/cfpropertylist.rb:3:in '<top (required)>'
+/Users/skn774n/.rvm/rubies/ruby-3.4.9/lib/ruby/3.4.0/bundled_gems.rb:82:in 'Kernel.require'
+/Users/skn774n/.rvm/rubies/ruby-3.4.9/lib/ruby/3.4.0/bundled_gems.rb:82:in 'block (2 levels) in Kernel#replace_require'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/xcodeproj-1.25.1/lib/xcodeproj/plist.rb:25:in 'Xcodeproj::Plist.read_from_path'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/xcode/xcframework.rb:41:in 'Pod::Xcode::XCFramework#initialize'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/target/build_settings.rb:518:in 'Class#new'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/target/build_settings.rb:518:in 'Pod::Target::BuildSettings#load_xcframework'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/target/build_settings.rb:746:in 'block (3 levels) in <class:PodTargetSettings>'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/target/build_settings.rb:746:in 'Array#map'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/target/build_settings.rb:746:in 'block (2 levels) in <class:PodTargetSettings>'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/target/build_settings.rb:745:in 'Array#each'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/target/build_settings.rb:745:in 'Enumerable#flat_map'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/target/build_settings.rb:745:in 'block in <class:PodTargetSettings>'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/target/build_settings.rb:120:in 'block in Pod::Target::BuildSettings::PodTargetSettings#define_build_settings_method'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/target/build_settings.rb:716:in 'block in <class:PodTargetSettings>'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/target/build_settings.rb:120:in 'block in Pod::Target::BuildSettings::PodTargetSettings#define_build_settings_method'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/target/build_settings.rb:727:in 'block in <class:PodTargetSettings>'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/target/build_settings.rb:120:in 'block in Pod::Target::BuildSettings::PodTargetSettings#define_build_settings_method'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/target/build_settings.rb:698:in 'block (2 levels) in <class:PodTargetSettings>'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/target/build_settings.rb:698:in 'Array#each'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/target/build_settings.rb:698:in 'Enumerable#flat_map'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/target/build_settings.rb:698:in 'block in <class:PodTargetSettings>'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/target/build_settings.rb:120:in 'block in Pod::Target::BuildSettings::PodTargetSettings#define_build_settings_method'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/target/build_settings.rb:395:in 'Kernel#public_send'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/target/build_settings.rb:395:in 'block in Pod::Target::BuildSettings#to_h'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/target/build_settings.rb:394:in 'Array#each'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/target/build_settings.rb:394:in 'Pod::Target::BuildSettings#to_h'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/target/build_settings.rb:188:in 'block in <class:BuildSettings>'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/target/build_settings.rb:587:in 'block in <class:PodTargetSettings>'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/target/build_settings.rb:120:in 'block in Pod::Target::BuildSettings::PodTargetSettings#define_build_settings_method'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/target/build_settings.rb:204:in 'Pod::Target::BuildSettings#save_as'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/installer/xcode/pods_project_generator/target_installer_helper.rb:24:in 'Pod::Installer::Xcode::PodsProjectGenerator::TargetInstallerHelper#update_changed_file'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/installer/xcode/pods_project_generator/pod_target_installer.rb:644:in 'block in Pod::Installer::Xcode::PodsProjectGenerator::PodTargetInstaller#create_xcconfig_file'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/installer/xcode/pods_project_generator/pod_target_installer.rb:642:in 'Hash#each'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/installer/xcode/pods_project_generator/pod_target_installer.rb:642:in 'Pod::Installer::Xcode::PodsProjectGenerator::PodTargetInstaller#create_xcconfig_file'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/installer/xcode/pods_project_generator/pod_target_installer.rb:71:in 'block in Pod::Installer::Xcode::PodsProjectGenerator::PodTargetInstaller#install!'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/user_interface.rb:149:in 'Pod::UserInterface.message'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/installer/xcode/pods_project_generator/pod_target_installer.rb:40:in 'Pod::Installer::Xcode::PodsProjectGenerator::PodTargetInstaller#install!'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/installer/xcode/pods_project_generator.rb:115:in 'block in Pod::Installer::Xcode::PodsProjectGenerator#install_pod_targets'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/installer/xcode/pods_project_generator.rb:112:in 'Array#map'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/installer/xcode/pods_project_generator.rb:112:in 'Pod::Installer::Xcode::PodsProjectGenerator#install_pod_targets'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/installer/xcode/single_pods_project_generator.rb:32:in 'block in Pod::Installer::Xcode::SinglePodsProjectGenerator#install_all_pod_targets'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/user_interface.rb:149:in 'Pod::UserInterface.message'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/installer/xcode/single_pods_project_generator.rb:31:in 'Pod::Installer::Xcode::SinglePodsProjectGenerator#install_all_pod_targets'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/installer/xcode/single_pods_project_generator.rb:19:in 'Pod::Installer::Xcode::SinglePodsProjectGenerator#generate!'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/installer.rb:320:in 'block in Pod::Installer#create_and_save_projects'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/user_interface.rb:64:in 'Pod::UserInterface.section'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/installer.rb:315:in 'Pod::Installer#create_and_save_projects'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/installer.rb:307:in 'Pod::Installer#generate_pods_project'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/installer.rb:183:in 'Pod::Installer#integrate'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/installer.rb:170:in 'Pod::Installer#install!'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/command/install.rb:52:in 'Pod::Command::Install#run'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/claide-1.1.0/lib/claide/command.rb:334:in 'CLAide::Command.run'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/lib/cocoapods/command.rb:52:in 'Pod::Command.run'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/gems/cocoapods-1.15.2/bin/pod:55:in '<top (required)>'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/bin/pod:25:in 'Kernel#load'
+/Users/skn774n/HackSolve/intelligent-pantry-scan/MobileApp/vendor/bundle/ruby/3.4.0/bin/pod:25:in '<main>'
+/Users/skn774n/.rvm/gems/ruby-3.4.9/bin/ruby_executable_hooks:22:in 'Kernel#eval'
+/Users/skn774n/.rvm/gems/ruby-3.4.9/bin/ruby_executable_hooks:22:in '<main>'
+```
+
+――― TEMPLATE END ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+
+[!] Oh no, an error occurred.
+
+Search for existing GitHub issues similar to yours:
+https://github.com/CocoaPods/CocoaPods/search?q=cannot+load+such+file+--+kconv&type=Issues
+
+If none exists, create a ticket, with the template displayed above, on:
+https://github.com/CocoaPods/CocoaPods/issues/new
+
+Be sure to first read the contributing guide for details on how to properly submit a ticket:
+https://github.com/CocoaPods/CocoaPods/blob/master/CONTRIBUTING.md
+
+Don't forget to anonymize any private data!
+
+Looking for related issues on cocoapods/cocoapods...
+ - pod install时报错
+   https://github.com/CocoaPods/CocoaPods/issues/12805 [open] [10 comments]
+   5 weeks ago
+
+ - Crash when reading Xcode project during intergration
+   https://github.com/CocoaPods/CocoaPods/issues/2483 [closed] [76 comments]
+   30 Mar 2015
+
