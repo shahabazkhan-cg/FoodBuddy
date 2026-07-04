@@ -99,3 +99,13 @@ play_store_svc_key.json
 # Storybook
 storybook-static
 build-storybook.log
+android/.gradle/8.14.3/checksums/checksums.lock
+android/.gradle/8.14.3/fileHashes/fileHashes.lock
+android/.gradle/buildOutputCleanup/buildOutputCleanup.lock
+android/app/release/app-release.apk
+android/app/release/baselineProfiles/0/app-release.dm
+android/app/release/baselineProfiles/1/app-release.dm
+android/.gradle/8.14.3/checksums/checksums.lock
+android/.gradle/8.14.3/checksums/checksums.lock
+android/.gradle/8.14.3/fileHashes/fileHashes.lock
+android/.gradle/buildOutputCleanup/buildOutputCleanup.lock
