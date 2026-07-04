@@ -48,22 +48,19 @@ export function LoginScreen({ navigation }: Props) {
         <View style={styles.actions}>
           <Button
             title="Sign Up"
-            // icon={<Icon name="apple" brand size={16} color={colors.bg} />}
             buttonStyle={styles.appleBtn}
             titleStyle={styles.appleTitle}
-            onPress={() => navigation.navigate("Onboarding")}
+            onPress={() => navigation.navigate("MainTabs")}
           />
           <Button
             title="Login"
             type="outline"
-            // icon={{ name: "google", type: "font-awesome-5", color: colors.text, size: 14 }}
             buttonStyle={styles.outlineBtn}
             titleStyle={styles.outlineTitle}
-            onPress={() => navigation.navigate("Onboarding")}
+            onPress={() => navigation.navigate("MainTabs")}
           />
           <Button
             title="Login as guest"
-            // icon={{ name: "mail", type: "ionicon", color: "#F4FFF8", size: 16 }}
             buttonStyle={styles.primaryBtn}
             onPress={() => navigation.navigate("Onboarding")}
           />

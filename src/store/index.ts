@@ -2,6 +2,8 @@ import { configureStore } from '@reduxjs/toolkit';
 import { baseApi } from './api/baseApi';
 import authReducer from './slices/authSlice';
 import chatReducer from './slices/chatSlice';
+import onboardingReducer from "./slices/onboardingSlice";
+
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +13,7 @@ export const store = configureStore({
     // Feature slices
     auth: authReducer,
     chat: chatReducer,
+    onboarding: onboardingReducer,
   },
 
   middleware: (getDefaultMiddleware) =>

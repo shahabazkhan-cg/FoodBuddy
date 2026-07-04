@@ -3,6 +3,10 @@ import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 import { Button, LinearProgress, Text } from "@rneui/themed";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import LottieView from "lottie-react-native";
+import { ChevronLeft } from "lucide-react-native";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "../../store";
+import { setAnswer } from "../../store/slices/onboardingSlice";
 
 import type { RootStackParamList } from "../../navigation/types";
 import { AppScreen } from "../../components/AppScreen";
@@ -10,44 +14,66 @@ import { colors } from "../../theme/appTheme";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Onboarding">;
 
+type StepKey =
+  | "household"
+  | "diet"
+  | "allergies"
+  | "cuisines"
+  | "goal"
+  | "frequency"
+  | "budget"
+  | "skill";
+
 type Step = {
+  key: StepKey;
   eyebrow: string;
   question: string;
   options: string[];
   multi?: boolean;
 };
-
 const STEPS: Step[] = [
-  { eyebrow: "01 Household", question: "Who are we cooking for?", options: ["Just me", "2 people", "3-4", "5+"] },
-  { eyebrow: "02 Diet", question: "What do you eat?", options: ["Omnivore", "Vegetarian", "Vegan", "Sugar free", "Keto", "Mediterranean"], multi: true },
-  { eyebrow: "03 Allergies", question: "Anything to avoid?", options: ["None", "Sugar", "Tree nuts", "Dairy", "Gluten", "Shellfish", "Eggs"], multi: true },
-  { eyebrow: "04 Cuisine", question: "Cuisines you love", options: ["Italian", "Indian", "Mexican", "Japanese", "Thai", "Mediterranean", "Belgian"], multi: true },
-  { eyebrow: "05 Goal", question: "Your nutrition goal", options: ["High protein", "Balanced", "Low carb", "Weight loss", "Muscle gain"] },
-  { eyebrow: "06 Frequency", question: "How often do you cook?", options: ["Daily", "5x a week", "Weekends only", "Rarely"] },
-  { eyebrow: "07 Budget", question: "Weekly grocery budget", options: ["Under €50", "€50-100", "€100-200", "€200+"] },
-  { eyebrow: "08 Skill", question: "Cooking skill level", options: ["Beginner", "Intermediate", "Expert"] },
+  { key: "household", eyebrow: "01 Household", question: "Who are we cooking for?", options: ["Just me", "2 people", "3-4", "5+"] },
+  { key: "diet", eyebrow: "02 Diet", question: "What do you eat?", options: ["Omnivore", "Vegetarian", "Vegan", "Sugar free", "Keto", "Mediterranean"], multi: true },
+  { key: "allergies", eyebrow: "03 Allergies", question: "Anything to avoid?", options: ["None", "Sugar", "Tree nuts", "Dairy", "Gluten", "Shellfish", "Eggs"], multi: true },
+  { key: "cuisines", eyebrow: "04 Cuisine", question: "Cuisines you love", options: ["Italian", "Indian", "Mexican", "Japanese", "Thai", "Mediterranean", "Belgian"], multi: true },
+  { key: "goal", eyebrow: "05 Goal", question: "Your nutrition goal", options: ["High protein", "Balanced", "Low carb", "Weight loss", "Muscle gain"] },
+  { key: "frequency", eyebrow: "06 Frequency", question: "How often do you cook?", options: ["Daily", "5x a week", "Weekends only", "Rarely"] },
+  { key: "budget", eyebrow: "07 Budget", question: "Weekly grocery budget", options: ["Under €50", "€50-100", "€100-200", "€200+"] },
+  { key: "skill", eyebrow: "08 Skill", question: "Cooking skill level", options: ["Beginner", "Intermediate", "Expert"] },
 ];
 
 export function OnboardingScreen({ navigation }: Props) {
   const [stepIndex, setStepIndex] = useState(0);
-  const [answers, setAnswers] = useState<Record<number, string[]>>({});
+  const dispatch = useDispatch();
+  const answers = useSelector(
+  (state: RootState) => state.onboarding.answers
+);
+console.log(answers);
 
   const step = STEPS[stepIndex];
   const selected = answers[stepIndex] ?? [];
   const progress = useMemo(() => (stepIndex + 1) / STEPS.length, [stepIndex]);
 
   const toggleSelection = (value: string) => {
-    setAnswers((prev) => {
-      const current = prev[stepIndex] ?? [];
-      if (step.multi) {
-        const next = current.includes(value)
-          ? current.filter((entry) => entry !== value)
-          : [...current, value];
-        return { ...prev, [stepIndex]: next };
-      }
-      return { ...prev, [stepIndex]: [value] };
-    });
-  };
+  const current = answers[stepIndex] ?? [];
+
+  let next: string[];
+
+  if (step.multi) {
+    next = current.includes(value)
+      ? current.filter((item) => item !== value)
+      : [...current, value];
+  } else {
+    next = [value];
+  }
+
+  dispatch(
+    setAnswer({
+      step: stepIndex,
+      answers: next,
+    })
+  );
+};
 
   const goNext = () => {
     if (stepIndex < STEPS.length - 1) {
@@ -60,11 +86,9 @@ export function OnboardingScreen({ navigation }: Props) {
   return (
     <AppScreen withBottomPad={false}>
       <View style={styles.headerRow}>
-        <Button
-          type="clear"
-          icon={{ name: "chevron-left", type: "feather", color: colors.text, size: 22 }}
-          onPress={() => (stepIndex === 0 ? navigation.goBack() : setStepIndex((value) => value - 1))}
-        />
+        <Pressable style={styles.circleBtn} onPress={() => (stepIndex === 0 ? navigation.goBack() : setStepIndex((value) => value - 1))}>
+          <ChevronLeft size={18} color={colors.text} />
+        </Pressable>
         <View style={styles.progressWrap}>
           <LinearProgress
             value={progress}
@@ -192,7 +216,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   optionTextActive: {
-    color: "#F4FFF8",
+    color: colors.text,
   },
   dot: {
     width: 22,
@@ -229,4 +253,12 @@ const styles = StyleSheet.create({
     color: colors.muted,
     fontWeight: "600",
   },
+    circleBtn: {
+      width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: "#F1F5F3",
+    alignItems: "center",
+    justifyContent: "center",
+  }
 });
