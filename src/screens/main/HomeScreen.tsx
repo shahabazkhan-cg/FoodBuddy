@@ -131,12 +131,8 @@ export function HomeScreen(_props: Props) {
         </View>
 
         <View style={styles.captureGrid}>
-          <CaptureOption icon={Refrigerator} title="Scan fridge" onPress={() => navigation.navigate("Scan")} />
-          <CaptureOption icon={ScanLine} title="Scan pantry" onPress={() => navigation.navigate("Scan")} />
+          <CaptureOption icon={Refrigerator} title="Scan" onPress={() => navigation.navigate("Scan")} />
           <CaptureOption icon={Receipt} title="Upload receipt" onPress={() => navigation.navigate("Scan")} />
-          <CaptureOption icon={ImageIcon} title="Upload images" onPress={() => navigation.navigate("Scan")} />
-          <CaptureOption icon={Mic} title="Voice input" onPress={() => navigation.navigate("Chat")} />
-          <CaptureOption icon={CalendarClock} title="Plan week" onPress={() => tabNavigation.navigate("Meals")} />
         </View>
       </Overlay>
     </AppScreen>

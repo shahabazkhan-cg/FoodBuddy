@@ -3,6 +3,8 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Button, Text } from "@rneui/themed";
 import LottieView from "lottie-react-native";
+import Icon from "react-native-vector-icons/FontAwesome5";
+
 
 import type { RootStackParamList } from "../../navigation/types";
 import { AppScreen } from "../../components/AppScreen";
@@ -45,23 +47,23 @@ export function LoginScreen({ navigation }: Props) {
 
         <View style={styles.actions}>
           <Button
-            title="Continue with Apple"
-            icon={{ name: "apple", type: "font-awesome-5", color: colors.bg, size: 16 }}
+            title="Sign Up"
+            // icon={<Icon name="apple" brand size={16} color={colors.bg} />}
             buttonStyle={styles.appleBtn}
             titleStyle={styles.appleTitle}
             onPress={() => navigation.navigate("Onboarding")}
           />
           <Button
-            title="Continue with Google"
+            title="Login"
             type="outline"
-            icon={{ name: "google", type: "font-awesome-5", color: colors.text, size: 14 }}
+            // icon={{ name: "google", type: "font-awesome-5", color: colors.text, size: 14 }}
             buttonStyle={styles.outlineBtn}
             titleStyle={styles.outlineTitle}
             onPress={() => navigation.navigate("Onboarding")}
           />
           <Button
-            title="Continue with email"
-            icon={{ name: "mail", type: "ionicon", color: "#F4FFF8", size: 16 }}
+            title="Login as guest"
+            // icon={{ name: "mail", type: "ionicon", color: "#F4FFF8", size: 16 }}
             buttonStyle={styles.primaryBtn}
             onPress={() => navigation.navigate("Onboarding")}
           />

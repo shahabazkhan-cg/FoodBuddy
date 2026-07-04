@@ -19,12 +19,13 @@ type Step = {
 
 const STEPS: Step[] = [
   { eyebrow: "01 Household", question: "Who are we cooking for?", options: ["Just me", "2 people", "3-4", "5+"] },
-  { eyebrow: "02 Diet", question: "What do you eat?", options: ["Omnivore", "Vegetarian", "Vegan", "Pescatarian", "Keto", "Mediterranean"], multi: true },
-  { eyebrow: "03 Allergies", question: "Anything to avoid?", options: ["Peanuts", "Tree nuts", "Dairy", "Gluten", "Shellfish", "Eggs", "None"], multi: true },
-  { eyebrow: "04 Cuisine", question: "Cuisines you love", options: ["Italian", "Indian", "Mexican", "Japanese", "Thai", "Mediterranean", "American"], multi: true },
+  { eyebrow: "02 Diet", question: "What do you eat?", options: ["Omnivore", "Vegetarian", "Vegan", "Sugar free", "Keto", "Mediterranean"], multi: true },
+  { eyebrow: "03 Allergies", question: "Anything to avoid?", options: ["None", "Sugar", "Tree nuts", "Dairy", "Gluten", "Shellfish", "Eggs"], multi: true },
+  { eyebrow: "04 Cuisine", question: "Cuisines you love", options: ["Italian", "Indian", "Mexican", "Japanese", "Thai", "Mediterranean", "Belgian"], multi: true },
   { eyebrow: "05 Goal", question: "Your nutrition goal", options: ["High protein", "Balanced", "Low carb", "Weight loss", "Muscle gain"] },
   { eyebrow: "06 Frequency", question: "How often do you cook?", options: ["Daily", "5x a week", "Weekends only", "Rarely"] },
-  { eyebrow: "07 Budget", question: "Weekly grocery budget", options: ["Under $50", "$50-100", "$100-200", "$200+"] },
+  { eyebrow: "07 Budget", question: "Weekly grocery budget", options: ["Under €50", "€50-100", "€100-200", "€200+"] },
+  { eyebrow: "08 Skill", question: "Cooking skill level", options: ["Beginner", "Intermediate", "Expert"] },
 ];
 
 export function OnboardingScreen({ navigation }: Props) {

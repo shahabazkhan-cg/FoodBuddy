@@ -75,7 +75,7 @@ export function ProfileScreen({ navigation }: Props) {
       </View>
 
       <Pressable style={styles.logoutBtn} onPress={() => navigation.replace("Login") }>
-        <LogOut size={15} color="#FCA5A5" />
+        <LogOut size={15} color="#EF4444" />
         <Text style={styles.logoutText}>Sign out</Text>
       </Pressable>
     </AppScreen>
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   logoutText: {
-    color: "#FCA5A5",
+    color: "#EF4444",
     fontSize: 14,
     fontWeight: "700",
   },
