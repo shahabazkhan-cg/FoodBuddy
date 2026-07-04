@@ -3,6 +3,8 @@ import { Pressable, StyleSheet, View } from "react-native";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Text } from "@rneui/themed";
 import { Bell, ChevronLeft, ChevronRight, HeartPulse, LogOut, Settings2, Users } from "lucide-react-native";
+import { useDispatch } from "react-redux";
+import { clearAnswers } from "../../store/slices/onboardingSlice";
 
 import type { RootStackParamList } from "../../navigation/types";
 import { AppScreen } from "../../components/AppScreen";
@@ -43,6 +45,9 @@ function Row({
 }
 
 export function ProfileScreen({ navigation }: Props) {
+
+const dispatch = useDispatch();
+
   return (
     <AppScreen withBottomPad={false}>
       <View style={styles.headerRow}>
@@ -74,7 +79,10 @@ export function ProfileScreen({ navigation }: Props) {
         <Row icon={Settings2} title="Settings" meta="Units, language, privacy" />
       </View>
 
-      <Pressable style={styles.logoutBtn} onPress={() => navigation.replace("Login") }>
+      <Pressable style={styles.logoutBtn} onPress={() => {
+        dispatch(clearAnswers())
+        navigation.replace("Login") 
+      }}>
         <LogOut size={15} color="#EF4444" />
         <Text style={styles.logoutText}>Sign out</Text>
       </Pressable>

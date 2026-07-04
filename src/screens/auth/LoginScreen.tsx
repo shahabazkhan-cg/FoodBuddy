@@ -39,7 +39,7 @@ export function LoginScreen({ navigation }: Props) {
           <Text style={styles.subtitle}>Your AI Kitchen Companion</Text>
 
           <View style={styles.featureList}>
-            <Feature emoji="📸" title="Scan your fridge in seconds" onPress={() => navigation.navigate("Scan")} />
+            <Feature emoji="📸" title="Scan your fridge in seconds" />
             <Feature emoji="🧠" title="Buddy remembers what you love" />
             <Feature emoji="🍳" title="Cook hands-free with voice" />
           </View>
