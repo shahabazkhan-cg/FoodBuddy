@@ -1,6 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
-import type { ChatMessage } from '../api/types';
+import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
+import type { ChatMessage } from "../api/types";
 
 // ─── State Shape ──────────────────────────────────────────────────────────────
 
@@ -8,13 +8,14 @@ export interface ChatState {
   messages: ChatMessage[];
   isStreaming: boolean;
   error: string | null;
-  conversationId: string | null;
+  thread_id: string | null;
 }
 
 const WELCOME_MESSAGE: ChatMessage = {
-  id: 'welcome',
-  role: 'assistant',
-  content: "Hey! I know your pantry, tastes, and what's expiring. Ask me anything.",
+  id: "welcome",
+  role: "assistant",
+  content:
+    "Hey! I know your pantry, tastes, and what's expiring. Ask me anything.",
   timestamp: 0,
 };
 
@@ -22,13 +23,13 @@ const initialState: ChatState = {
   messages: [WELCOME_MESSAGE],
   isStreaming: false,
   error: null,
-  conversationId: null,
+  thread_id: null,
 };
 
 // ─── Slice ────────────────────────────────────────────────────────────────────
 
 const chatSlice = createSlice({
-  name: 'chat',
+  name: "chat",
   initialState,
   reducers: {
     /**
@@ -38,7 +39,7 @@ const chatSlice = createSlice({
     addUserMessage: (state, action: PayloadAction<{ content: string }>) => {
       state.messages.push({
         id: `user-${Date.now()}`,
-        role: 'user',
+        role: "user",
         content: action.payload.content,
         timestamp: Date.now(),
       });
@@ -51,16 +52,16 @@ const chatSlice = createSlice({
      */
     startAssistantStream: (
       state,
-      action: PayloadAction<{ messageId: string; conversationId?: string }>,
+      action: PayloadAction<{ messageId: string; thread_id?: string }>,
     ) => {
       state.isStreaming = true;
-      if (action.payload.conversationId) {
-        state.conversationId = action.payload.conversationId;
+      if (action.payload.thread_id) {
+        state.thread_id = action.payload.thread_id;
       }
       state.messages.push({
         id: action.payload.messageId,
-        role: 'assistant',
-        content: '',
+        role: "assistant",
+        content: "",
         timestamp: Date.now(),
         isStreaming: true,
       });
@@ -110,9 +111,9 @@ const chatSlice = createSlice({
       }
     },
 
-    /** Store the conversationId returned by the first SSE event. */
+    /** Store the thread_id returned by the first SSE event. */
     setConversationId: (state, action: PayloadAction<string>) => {
-      state.conversationId = action.payload;
+      state.thread_id = action.payload;
     },
 
     /**
@@ -121,7 +122,7 @@ const chatSlice = createSlice({
      */
     clearChat: (state) => {
       state.messages = [WELCOME_MESSAGE];
-      state.conversationId = null;
+      state.thread_id = null;
       state.isStreaming = false;
       state.error = null;
     },
