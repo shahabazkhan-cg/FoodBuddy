@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Button, Text } from "@rneui/themed";
 import LottieView from "lottie-react-native";
@@ -10,12 +10,12 @@ import { colors } from "../../theme/appTheme";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Login">;
 
-function Feature({ emoji, title }: { emoji: string; title: string }) {
+function Feature({ emoji, title, onPress }: { emoji: string; title: string; onPress?: () => void }) {
   return (
-    <View style={styles.featureCard}>
+    <Pressable onPress={onPress} style={({ pressed }) => [styles.featureCard, pressed && styles.featureCardPressed]}>
       <Text style={styles.featureEmoji}>{emoji}</Text>
       <Text style={styles.featureTitle}>{title}</Text>
-    </View>
+    </Pressable>
   );
 }
 
@@ -37,7 +37,7 @@ export function LoginScreen({ navigation }: Props) {
           <Text style={styles.subtitle}>Your AI Kitchen Companion</Text>
 
           <View style={styles.featureList}>
-            <Feature emoji="📸" title="Scan your fridge in seconds" />
+            <Feature emoji="📸" title="Scan your fridge in seconds" onPress={() => navigation.navigate("Scan")} />
             <Feature emoji="🧠" title="Buddy remembers what you love" />
             <Feature emoji="🍳" title="Cook hands-free with voice" />
           </View>
@@ -120,6 +120,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 10,
+  },
+  featureCardPressed: {
+    opacity: 0.85,
   },
   featureEmoji: {
     fontSize: 18,
