@@ -47,8 +47,9 @@ export function useChatStream(): UseChatStreamReturn {
   const dispatch = useAppDispatch();
   const isStreaming = useAppSelector((state) => state.chat.isStreaming);
   const error = useAppSelector((state) => state.chat.error);
-  const conversationId = useAppSelector((state) => state.chat.conversationId);
+  const thread_id = useAppSelector((state) => state.chat.thread_id);
   const token = useAppSelector((state) => state.auth.token);
+  const user_id = useAppSelector((state) => state.auth.user_id);
 
   // Holds a reference to the AbortController so we can cancel mid-stream.
   const abortRef = useRef<AbortController | null>(null);
@@ -59,7 +60,10 @@ export function useChatStream(): UseChatStreamReturn {
       const trimmed = content.trim();
       if (!trimmed || isStreaming) return;
 
-      logger.debug('Chat', 'User message sent', { content: trimmed, conversationId });
+      logger.debug("Chat", "User message sent", {
+        content: trimmed,
+        thread_id,
+      });
 
       // 1. Add the user bubble immediately.
       dispatch(addUserMessage({ content: trimmed }));
@@ -72,8 +76,8 @@ export function useChatStream(): UseChatStreamReturn {
       abortRef.current = new AbortController();
 
       try {
-        logger.info('Chat', `Opening SSE stream to ${API_BASE_URL}/chat/sse`, {
-          conversationId: conversationId || 'new',
+        logger.info("Chat", `Opening SSE stream to ${API_BASE_URL}/chat/sse`, {
+          thread_id: thread_id || "new",
         });
 
         await fetchEventSourceRN(`${API_BASE_URL}/chat/sse`, {
@@ -85,7 +89,8 @@ export function useChatStream(): UseChatStreamReturn {
           },
           body: JSON.stringify({
             user_input: trimmed,
-            ...(conversationId ? { conversationId } : {}),
+            ...(thread_id ? { thread_id } : {}),
+            ...(user_id ? { user_id } : {}),
           }),
           signal: abortRef.current.signal,
 
@@ -94,7 +99,7 @@ export function useChatStream(): UseChatStreamReturn {
             if (status < 200 || status >= 300) {
               throw new Error(`Server responded with ${status}`);
             }
-            logger.debug('Chat', `SSE stream opened: ${status}`, {
+            logger.debug("Chat", `SSE stream opened: ${status}`, {
               status,
               url: `${API_BASE_URL}/chat/sse`,
             });
@@ -103,12 +108,14 @@ export function useChatStream(): UseChatStreamReturn {
           // Called for every SSE event the server emits.
           onmessage(event: { event: string; data: string; id?: string }) {
             console.log("📨 SSE message received:", event.data);
-            logger.debug('Chat', 'SSE event received', { eventData: event.data.slice(0, 100) });
+            logger.debug("Chat", "SSE event received", {
+              eventData: event.data.slice(0, 100),
+            });
 
             // OpenAI-style end-of-stream sentinel.
             if (event.data === "[DONE]") {
               console.log("✅ Stream finished with [DONE]");
-              logger.info('Chat', 'Stream finalized with [DONE]');
+              logger.info("Chat", "Stream finalized with [DONE]");
               dispatch(finalizeAssistantMessage({ messageId }));
               return;
             }
@@ -116,24 +123,26 @@ export function useChatStream(): UseChatStreamReturn {
             try {
               const payload: any = JSON.parse(event.data);
               console.log("📦 Parsed payload:", payload);
-              logger.debug('Chat', 'Parsed SSE payload', { payload });
+              logger.debug("Chat", "Parsed SSE payload", { payload });
 
               // Handle agent messages (the main response)
               if (payload.node === "agent" && payload.message) {
                 console.log("💬 Agent message:", payload.message);
-                logger.debug('Chat', 'Agent message from SSE', { message: payload.message });
+                logger.debug("Chat", "Agent message from SSE", {
+                  message: payload.message,
+                });
                 dispatch(
                   appendStreamToken({ messageId, token: payload.message }),
                 );
                 return;
               }
 
-              // First event typically carries the conversationId.
-              if (payload.conversationId) {
-                logger.debug('Chat', 'Conversation ID set', {
-                  conversationId: payload.conversationId,
+              // First event typically carries the thread_id.
+              if (payload.thread_id) {
+                logger.debug("Chat", "Thread ID set", {
+                  thread_id: payload.thread_id,
                 });
-                dispatch(setConversationId(payload.conversationId));
+                dispatch(setConversationId(payload.thread_id));
               }
 
               // Streaming text token.
@@ -145,7 +154,7 @@ export function useChatStream(): UseChatStreamReturn {
 
               // Server signals end of generation.
               if (payload.done) {
-                logger.info('Chat', 'Server signaled done', {
+                logger.info("Chat", "Server signaled done", {
                   recipeId: payload.recipeId,
                 });
                 dispatch(
@@ -157,7 +166,7 @@ export function useChatStream(): UseChatStreamReturn {
               }
             } catch (err) {
               console.error("❌ Error parsing SSE message:", err);
-              logger.error('Chat', 'Error parsing SSE message', { error: err });
+              logger.error("Chat", "Error parsing SSE message", { error: err });
               // Non-JSON stream (plain text tokens) — treat the whole data as a token.
               dispatch(appendStreamToken({ messageId, token: event.data }));
             }
@@ -165,7 +174,7 @@ export function useChatStream(): UseChatStreamReturn {
 
           // Called when the server closes the connection cleanly.
           onclose() {
-            logger.info('Chat', 'SSE stream closed by server');
+            logger.info("Chat", "SSE stream closed by server");
             dispatch(finalizeAssistantMessage({ messageId }));
           },
 
@@ -175,9 +184,9 @@ export function useChatStream(): UseChatStreamReturn {
               err instanceof Error
                 ? err.message
                 : "Stream error. Please try again.";
-            logger.error('Chat', 'SSE stream error', {
+            logger.error("Chat", "SSE stream error", {
               error: message,
-              errorName: err instanceof Error ? err.name : 'Unknown',
+              errorName: err instanceof Error ? err.name : "Unknown",
               url: `${API_BASE_URL}/chat/sse`,
               timestamp: new Date().toISOString(),
             });
@@ -196,7 +205,7 @@ export function useChatStream(): UseChatStreamReturn {
         const message = err instanceof Error ? err.message : String(err);
         // eslint-disable-next-line no-console
         console.warn("useChatStream error:", err);
-        logger.error('Chat', 'useChatStream error', {
+        logger.error("Chat", "useChatStream error", {
           error: message,
           stack: err instanceof Error ? err.stack : undefined,
         });
@@ -244,7 +253,7 @@ export function useChatStream(): UseChatStreamReturn {
         }
       }
     },
-    [dispatch, isStreaming, conversationId, token],
+    [dispatch, isStreaming, thread_id, token, user_id],
   );
 
   // ── cancelStream ───────────────────────────────────────────────────────────

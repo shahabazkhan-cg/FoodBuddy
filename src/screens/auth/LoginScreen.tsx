@@ -1,23 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Button, Text } from "@rneui/themed";
-import FontAwesome5 from "@react-native-vector-icons/fontawesome5";
 // @ts-ignore - react-native-vector-icons doesn't have full TypeScript support
 import FeatherIcon from "react-native-vector-icons/Feather";
 import LottieView from "lottie-react-native";
-import Icon from "react-native-vector-icons/FontAwesome5";
-
+import { ChevronDown } from "lucide-react-native";
 
 import type { RootStackParamList } from "../../navigation/types";
 import { AppScreen } from "../../components/AppScreen";
 import { colors } from "../../theme/appTheme";
+import { useAppDispatch } from "../../store/hooks";
+import { setUserId } from "../../store/slices/authSlice";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Login">;
 
-function Feature({ emoji, title, onPress }: { emoji: string; title: string; onPress?: () => void }) {
+// User list with IDs
+const USERS = [
+  { id: "user_chandra", name: "Chandra" },
+  { id: "user_pasha", name: "Pasha" },
+  { id: "user_thakur", name: "Thakur" },
+  { id: "user_roshan", name: "Roshan" },
+  { id: "user_shahbaz", name: "Shahbaz" },
+  { id: "user_hemanth", name: "Hemanth" },
+];
+
+function Feature({
+  emoji,
+  title,
+  onPress,
+}: {
+  emoji: string;
+  title: string;
+  onPress?: () => void;
+}) {
   return (
-    <Pressable onPress={onPress} style={({ pressed }) => [styles.featureCard, pressed && styles.featureCardPressed]}>
+    <Pressable
+      onPress={onPress}
+      style={({ pressed }) => [
+        styles.featureCard,
+        pressed && styles.featureCardPressed,
+      ]}
+    >
       <Text style={styles.featureEmoji}>{emoji}</Text>
       <Text style={styles.featureTitle}>{title}</Text>
     </Pressable>
@@ -25,9 +49,25 @@ function Feature({ emoji, title, onPress }: { emoji: string; title: string; onPr
 }
 
 export function LoginScreen({ navigation }: Props) {
+  const [selectedUserId, setSelectedUserId] = useState<string>(USERS[0].id);
+  const [showUserDropdown, setShowUserDropdown] = useState(false);
+  const dispatch = useAppDispatch();
+
+  const handleUserSelect = (user_id: string) => {
+    setSelectedUserId(user_id);
+    dispatch(setUserId(user_id));
+    setShowUserDropdown(false);
+    navigation.navigate("MainTabs"); // Navigate to Home after selecting a user
+  };
+
+  const selectedUser = USERS.find((u) => u.id === selectedUserId);
+
   return (
     <AppScreen withBottomPad={false}>
-      <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        contentContainerStyle={styles.container}
+        showsVerticalScrollIndicator={false}
+      >
         <View>
           <View style={styles.logoCard}>
             <LottieView
@@ -41,6 +81,56 @@ export function LoginScreen({ navigation }: Props) {
           <Text style={styles.title}>Food Buddy</Text>
           <Text style={styles.subtitle}>Your AI Kitchen Companion</Text>
 
+          {/* User Selection Dropdown */}
+          <View style={styles.userSelectionSection}>
+            <Text style={styles.userSelectionLabel}>Select User</Text>
+            <Pressable
+              style={[
+                styles.userDropdownButton,
+                showUserDropdown && styles.userDropdownButtonActive,
+              ]}
+              onPress={() => setShowUserDropdown(!showUserDropdown)}
+            >
+              <Text style={styles.userDropdownText}>
+                {selectedUser?.name || "Select a user"}
+              </Text>
+              <ChevronDown
+                size={16}
+                color={colors.text}
+                style={{
+                  transform: [{ rotate: showUserDropdown ? "180deg" : "0deg" }],
+                }}
+              />
+            </Pressable>
+
+            {/* User Dropdown Menu */}
+            {showUserDropdown && (
+              <View style={styles.userDropdownMenu}>
+                {USERS.map((user) => (
+                  <Pressable
+                    key={user.id}
+                    style={[
+                      styles.userDropdownItem,
+                      selectedUserId === user.id &&
+                        styles.userDropdownItemSelected,
+                    ]}
+                    onPress={() => handleUserSelect(user.id)}
+                  >
+                    <Text
+                      style={[
+                        styles.userDropdownItemText,
+                        selectedUserId === user.id &&
+                          styles.userDropdownItemTextSelected,
+                      ]}
+                    >
+                      {user.name}
+                    </Text>
+                  </Pressable>
+                ))}
+              </View>
+            )}
+          </View>
+
           <View style={styles.featureList}>
             <Feature emoji="📸" title="Scan your fridge in seconds" />
             <Feature emoji="🧠" title="Buddy remembers what you love" />
@@ -49,25 +139,9 @@ export function LoginScreen({ navigation }: Props) {
         </View>
 
         <View style={styles.actions}>
-          <Button
-            title="Sign Up"
-            buttonStyle={styles.appleBtn}
-            titleStyle={styles.appleTitle}
-            onPress={() => navigation.navigate("MainTabs")}
-          />
-          <Button
-            title="Login"
-            type="outline"
-            buttonStyle={styles.outlineBtn}
-            titleStyle={styles.outlineTitle}
-            onPress={() => navigation.navigate("MainTabs")}
-          />
-          <Button
-            title="Login as guest"
-            buttonStyle={styles.primaryBtn}
-            onPress={() => navigation.navigate("Onboarding")}
-          />
-          <Text style={styles.terms}>By continuing you agree to our Terms and Privacy.</Text>
+          <Text style={styles.terms}>
+            By continuing you agree to our Terms and Privacy.
+          </Text>
         </View>
       </ScrollView>
     </AppScreen>
@@ -107,6 +181,74 @@ const styles = StyleSheet.create({
     fontSize: 14,
     textAlign: "center",
     marginTop: 6,
+  },
+  userSelectionSection: {
+    marginTop: 20,
+    marginBottom: 10,
+    paddingHorizontal: 4,
+  },
+  userSelectionLabel: {
+    color: colors.muted,
+    fontSize: 12,
+    fontWeight: "600",
+    textTransform: "uppercase",
+    marginBottom: 8,
+  },
+  userDropdownButton: {
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: colors.border,
+    backgroundColor: colors.card,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  userDropdownButtonActive: {
+    borderColor: colors.primary,
+    backgroundColor: colors.card,
+  },
+  userDropdownText: {
+    color: colors.text,
+    fontSize: 14,
+    fontWeight: "600",
+  },
+  userDropdownMenu: {
+    position: "absolute",
+    top: 90,
+    left: 4,
+    right: 4,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: colors.border,
+    backgroundColor: colors.card,
+    marginHorizontal: 4,
+    zIndex: 1000,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  userDropdownItem: {
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.border,
+  },
+  userDropdownItemSelected: {
+    backgroundColor: colors.primary,
+    opacity: 0.1,
+  },
+  userDropdownItemText: {
+    color: colors.text,
+    fontSize: 14,
+    fontWeight: "500",
+  },
+  userDropdownItemTextSelected: {
+    fontWeight: "700",
+    color: colors.primary,
   },
   featureList: {
     marginTop: 28,
