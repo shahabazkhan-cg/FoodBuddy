@@ -1,5 +1,6 @@
 import "react-native-gesture-handler";
-import React from "react";
+import "./src/polyfills/textDecoder";
+import React, { useEffect } from "react";
 import { StatusBar } from "react-native";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -10,6 +11,8 @@ import { Provider as ReduxProvider } from "react-redux";
 import { RootNavigator } from "./src/navigation/RootNavigator";
 import { appTheme } from "./src/theme/appTheme";
 import { store } from "./src/store";
+import { DebugConsole } from "./src/components/DebugConsole";
+import { initNetworkInterceptor } from "./src/utils/networkInterceptor";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +29,11 @@ const navTheme = {
 };
 
 export default function App() {
+  // Initialize network interceptor on app startup
+  useEffect(() => {
+    initNetworkInterceptor();
+  }, []);
+
   return (
     <ReduxProvider store={store}>
       <SafeAreaProvider>
@@ -34,6 +42,7 @@ export default function App() {
             <NavigationContainer theme={navTheme}>
               <StatusBar barStyle="light-content" />
               <RootNavigator />
+              {__DEV__ && <DebugConsole />}
             </NavigationContainer>
           </QueryClientProvider>
         </ThemeProvider>

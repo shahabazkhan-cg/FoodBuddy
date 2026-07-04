@@ -4,7 +4,7 @@ import type { ChatMessage } from '../api/types';
 
 // ─── State Shape ──────────────────────────────────────────────────────────────
 
-interface ChatState {
+export interface ChatState {
   messages: ChatMessage[];
   isStreaming: boolean;
   error: string | null;

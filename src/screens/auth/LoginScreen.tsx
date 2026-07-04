@@ -2,6 +2,9 @@ import React from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Button, Text } from "@rneui/themed";
+import FontAwesome5 from "@react-native-vector-icons/fontawesome5";
+// @ts-ignore - react-native-vector-icons doesn't have full TypeScript support
+import FeatherIcon from "react-native-vector-icons/Feather";
 import LottieView from "lottie-react-native";
 
 import type { RootStackParamList } from "../../navigation/types";
@@ -46,7 +49,7 @@ export function LoginScreen({ navigation }: Props) {
         <View style={styles.actions}>
           <Button
             title="Continue with Apple"
-            icon={{ name: "apple", type: "font-awesome-5", color: colors.bg, size: 16 }}
+            icon={<FontAwesome5 name="apple" iconStyle="brand" color={colors.bg} size={16} />}
             buttonStyle={styles.appleBtn}
             titleStyle={styles.appleTitle}
             onPress={() => navigation.navigate("Onboarding")}
@@ -54,14 +57,14 @@ export function LoginScreen({ navigation }: Props) {
           <Button
             title="Continue with Google"
             type="outline"
-            icon={{ name: "google", type: "font-awesome-5", color: colors.text, size: 14 }}
+            icon={<FontAwesome5 name="google" iconStyle="brand" color={colors.text} size={14} />}
             buttonStyle={styles.outlineBtn}
             titleStyle={styles.outlineTitle}
             onPress={() => navigation.navigate("Onboarding")}
           />
           <Button
             title="Continue with email"
-            icon={{ name: "mail", type: "ionicon", color: "#F4FFF8", size: 16 }}
+            icon={<FontAwesome5 name="envelope" color="#F4FFF8" size={16} />}
             buttonStyle={styles.primaryBtn}
             onPress={() => navigation.navigate("Onboarding")}
           />
@@ -132,6 +135,9 @@ const styles = StyleSheet.create({
   actions: {
     marginTop: 24,
     gap: 10,
+  },
+  buttonIcon: {
+    marginRight: 8,
   },
   appleBtn: {
     backgroundColor: colors.text,

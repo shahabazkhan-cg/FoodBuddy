@@ -1,6 +1,8 @@
 import React, { useMemo, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 import { Button, LinearProgress, Text } from "@rneui/themed";
+// @ts-ignore - react-native-vector-icons doesn't have full TypeScript support
+import FeatherIcon from "react-native-vector-icons/Feather";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import LottieView from "lottie-react-native";
 
@@ -61,7 +63,13 @@ export function OnboardingScreen({ navigation }: Props) {
       <View style={styles.headerRow}>
         <Button
           type="clear"
-          icon={{ name: "chevron-left", type: "feather", color: colors.text, size: 22 }}
+          icon={
+            <FeatherIcon
+              name="chevron-left"
+              color={colors.text}
+              size={22}
+            />
+          }
           onPress={() => (stepIndex === 0 ? navigation.goBack() : setStepIndex((value) => value - 1))}
         />
         <View style={styles.progressWrap}>

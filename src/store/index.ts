@@ -2,22 +2,31 @@ import { configureStore } from '@reduxjs/toolkit';
 import { baseApi } from './api/baseApi';
 import authReducer from './slices/authSlice';
 import chatReducer from './slices/chatSlice';
+import { apiLoggingMiddleware } from './middleware/loggingMiddleware';
+
+declare const __DEV__: boolean;
 
 export const store = configureStore({
   reducer: {
-    // RTK Query cache — one entry for the entire API
     [baseApi.reducerPath]: baseApi.reducer,
-
-    // Feature slices
     auth: authReducer,
     chat: chatReducer,
   },
 
   middleware: (getDefaultMiddleware) =>
-    // RTK Query middleware handles cache lifecycle, invalidation, polling, etc.
-    getDefaultMiddleware().concat(baseApi.middleware),
+    getDefaultMiddleware()
+      .concat(baseApi.middleware)
+      .concat(apiLoggingMiddleware),
+
+  // Enable Redux DevTools in development
+  // configureStore automatically detects the extension if available
+  devTools: __DEV__
+    ? {
+        trace: true,
+        traceLimit: 25,
+      }
+    : false,
 });
 
-// Inferred types — import these instead of typing manually throughout the app.
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

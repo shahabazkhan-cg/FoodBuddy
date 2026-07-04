@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { ApiUser, AuthResponse } from '../api/types';
 
-interface AuthState {
+export interface AuthState {
   user: ApiUser | null;
   token: string | null;
   isAuthenticated: boolean;
