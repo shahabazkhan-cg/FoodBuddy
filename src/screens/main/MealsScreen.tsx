@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   },
   statPill: {
     borderRadius: 999,
-    backgroundColor: "#1C2A22",
+    backgroundColor: "#F1F5F3",
     paddingHorizontal: 10,
     paddingVertical: 5,
     flexDirection: "row",
@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
     width: 42,
     height: 42,
     borderRadius: 12,
-    backgroundColor: "#1C2A22",
+    backgroundColor: "#F1F5F3",
     alignItems: "center",
     justifyContent: "center",
   },

@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: "#1C2A22",
+    backgroundColor: "#F1F5F3",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   heroBadge: {
     alignSelf: "flex-start",
     borderRadius: 999,
-    backgroundColor: "#153321",
+    backgroundColor: "#E8F7EE",
     flexDirection: "row",
     alignItems: "center",
     gap: 6,
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
   },
   confChip: {
     borderRadius: 999,
-    backgroundColor: "#153321",
+    backgroundColor: "#E8F7EE",
     paddingHorizontal: 8,
     paddingVertical: 3,
   },

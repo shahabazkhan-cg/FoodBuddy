@@ -171,8 +171,8 @@ const styles = StyleSheet.create({
   buddyBox: {
     borderRadius: 14,
     borderWidth: 1,
-    borderColor: "#286844",
-    backgroundColor: "#153321",
+    borderColor: "#7CCB98",
+    backgroundColor: "#E8F7EE",
     padding: 12,
     flexDirection: "row",
     alignItems: "center",

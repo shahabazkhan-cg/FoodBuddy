@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
   },
   pill: {
     borderRadius: 999,
-    backgroundColor: "#1C2A22",
+    backgroundColor: "#F1F5F3",
     paddingHorizontal: 10,
     paddingVertical: 6,
     flexDirection: "row",

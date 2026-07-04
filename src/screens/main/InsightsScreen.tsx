@@ -152,8 +152,8 @@ const styles = StyleSheet.create({
   summaryCard: {
     marginTop: 12,
     borderRadius: 18,
-    backgroundColor: "#153321",
-    borderColor: "#286844",
+    backgroundColor: "#E8F7EE",
+    borderColor: "#7CCB98",
     padding: 14,
   },
   summaryTitle: {

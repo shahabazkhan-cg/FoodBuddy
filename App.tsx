@@ -18,7 +18,7 @@ const navTheme = {
     background: "#0B0F0D",
     card: "#111714",
     text: "#E9F2EC",
-    border: "#1C2A22",
+    border: "#F1F5F3",
     primary: "#3FBF6F",
   },
 };

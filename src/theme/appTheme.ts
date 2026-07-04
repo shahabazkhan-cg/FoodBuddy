@@ -1,15 +1,15 @@
 import { createTheme } from "@rneui/themed";
 
 export const colors = {
-  bg: "#0B0F0D",
-  card: "#111714",
-  border: "#1C2A22",
-  text: "#E9F2EC",
-  muted: "#8FA79B",
-  primary: "#3FBF6F",
-  primarySoft: "#153321",
-  warning: "#F59E0B",
-  success: "#22C55E",
+  bg: "#F8FAF9",          // Main background
+  card: "#FFFFFF",        // Cards
+  border: "#DDE7E1",      // Light border
+  text: "#16211B",        // Primary text
+  muted: "#667A70",       // Secondary text
+  primary: "#2E9E5A",     // Brand green (slightly darker for contrast)
+  primarySoft: "#E8F7EE", // Soft green background
+  warning: "#D97706",     // Amber
+  success: "#16A34A",     // Success green
 };
 
 export const appTheme = createTheme({
