@@ -59,14 +59,14 @@ export function HomeScreen(_props: Props) {
           </Pressable>
           <View>
             <Text style={styles.smallMuted}>Good evening</Text>
-            <Text style={styles.greeting}>Hi Sarvaa</Text>
+            <Text style={styles.greeting}>Hi Deepak</Text>
           </View>
           <View style={styles.spacer} />
         </View>
 
         <Text style={styles.heroTitle}>What are we cooking tonight?</Text>
 
-        <Card containerStyle={styles.heroCard}>
+        {/* <Card containerStyle={styles.heroCard}>
           <View style={styles.heroBadge}>
             <Sparkles size={13} color={colors.primary} />
             <Text style={styles.heroBadgeText}>Buddy already knows</Text>
@@ -74,7 +74,7 @@ export function HomeScreen(_props: Props) {
           <Text style={styles.heroLine}>Your pantry has 24 ingredients</Text>
           <Text style={styles.heroLine}>3 ingredients expire tomorrow</Text>
           <Text style={styles.heroLine}>You can prepare 18 meals now</Text>
-        </Card>
+        </Card> */}
 
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.promptsRow}>
           {SUGGESTED_PROMPTS.map((prompt) => (
@@ -90,13 +90,13 @@ export function HomeScreen(_props: Props) {
           <QuickAction
             emoji="🥑"
             title="My pantry"
-            meta="24 items · 92 score"
+            meta=""
             onPress={() => tabNavigation.navigate("Pantry")}
           />
           <QuickAction
             emoji="📅"
             title="Meal plan"
-            meta="5 of 7 dinners"
+            meta=""
             onPress={() => tabNavigation.navigate("Meals")}
           />
         </View>
