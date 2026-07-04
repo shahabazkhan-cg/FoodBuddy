@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
-  KeyboardAvoidingView,
-  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -12,6 +10,11 @@ import {
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Text } from "@rneui/themed";
 import { ArrowUp, Camera, ChevronLeft, Mic, Square } from "lucide-react-native";
+import {
+  KeyboardAwareScrollView,
+  KeyboardStickyView,
+} from "react-native-keyboard-controller";
+import type { KeyboardAwareScrollViewRef } from "react-native-keyboard-controller";
 
 import type { RootStackParamList } from "../../navigation/types";
 import { AppScreen } from "../../components/AppScreen";
@@ -31,7 +34,7 @@ export function ChatScreen({ navigation, route }: Props) {
   const messages = useAppSelector((state) => state.chat.messages);
   const { sendMessage, cancelStream, isStreaming, error, resetChat } = useChatStream();
 
-  const scrollRef = useRef<ScrollView>(null);
+  const scrollRef = useRef<KeyboardAwareScrollViewRef>(null);
   const hasAutoSent = useRef(false);
 
   // When opened with a prompt (e.g. from a chip on HomeScreen), reset the
@@ -81,17 +84,15 @@ export function ChatScreen({ navigation, route }: Props) {
         <View style={styles.headerSpacer} />
       </View>
 
-      <KeyboardAvoidingView
-        style={styles.keyboardContainer}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        keyboardVerticalOffset={Platform.OS === "ios" ? 8 : 25}
-      >
+      <View style={styles.keyboardContainer}>
         {/* ── Message list ───────────────────────────────────────────────────── */}
-        <ScrollView
+        <KeyboardAwareScrollView
           ref={scrollRef}
           style={styles.chatArea}
           contentContainerStyle={styles.chatContent}
           keyboardShouldPersistTaps="handled"
+          extraKeyboardSpace={12}
+          bottomOffset={8}
         >
           {messages.map((msg) => (
             <View
@@ -172,9 +173,10 @@ export function ChatScreen({ navigation, route }: Props) {
               ))}
             </ScrollView>
           )}
-        </ScrollView>
+        </KeyboardAwareScrollView>
 
         {/* ── Input bar ──────────────────────────────────────────────────────── */}
+        <KeyboardStickyView offset={{ opened: -8 }}>
         <View style={styles.inputBar}>
           <TextInput
             value={inputText}
@@ -207,7 +209,8 @@ export function ChatScreen({ navigation, route }: Props) {
             </Pressable>
           )}
         </View>
-      </KeyboardAvoidingView>
+        </KeyboardStickyView>
+      </View>
     </AppScreen>
   );
 }

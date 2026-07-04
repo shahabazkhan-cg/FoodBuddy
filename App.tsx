@@ -13,6 +13,7 @@ import { appTheme } from "./src/theme/appTheme";
 import { store } from "./src/store";
 import { DebugConsole } from "./src/components/DebugConsole";
 import { initNetworkInterceptor } from "./src/utils/networkInterceptor";
+import { KeyboardProvider } from "react-native-keyboard-controller";
 
 const queryClient = new QueryClient();
 
@@ -35,18 +36,21 @@ export default function App() {
   }, []);
 
   return (
-    <ReduxProvider store={store}>
-      <SafeAreaProvider>
-        <ThemeProvider theme={appTheme}>
-          <QueryClientProvider client={queryClient}>
-            <NavigationContainer theme={navTheme}>
-              <StatusBar barStyle="light-content" />
-              <RootNavigator />
-              {/* {__DEV__ && <DebugConsole />} */}
-            </NavigationContainer>
-          </QueryClientProvider>
-        </ThemeProvider>
-      </SafeAreaProvider>
-    </ReduxProvider>
+      <KeyboardProvider preserveEdgeToEdge={true} enabled={true} preload={false}>
+      <ReduxProvider store={store}>
+        <SafeAreaProvider>
+          <ThemeProvider theme={appTheme}>
+            <QueryClientProvider client={queryClient}>
+
+              <NavigationContainer theme={navTheme}>
+                <StatusBar barStyle="light-content" />           
+                <RootNavigator />          
+                {/* {__DEV__ && <DebugConsole />} */}
+              </NavigationContainer>
+            </QueryClientProvider>
+          </ThemeProvider>
+        </SafeAreaProvider>
+      </ReduxProvider>
+      </KeyboardProvider>
   );
 }
