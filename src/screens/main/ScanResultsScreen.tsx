@@ -4,7 +4,7 @@ import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Text } from "@rneui/themed";
 import { Check, Pencil, Sparkles, X } from "lucide-react-native";
 
-import type { RootStackParamList } from "../../navigation/types";
+import type { RootStackParamList, VisionExtractItem } from "../../navigation/types";
 import { AppScreen } from "../../components/AppScreen";
 import { ExpiryBadge } from "../../components/ExpiryBadge";
 import { PANTRY } from "../../data/foodBuddyData";
@@ -12,8 +12,49 @@ import { colors } from "../../theme/appTheme";
 
 type Props = NativeStackScreenProps<RootStackParamList, "ScanResults">;
 
-export function ScanResultsScreen({ navigation }: Props) {
-  const items = PANTRY.slice(0, 8);
+function getExpiryStatus(expiryDate: string): "fresh" | "soon" | "expired" {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const expiry = new Date(expiryDate);
+  expiry.setHours(0, 0, 0, 0);
+
+  const msInDay = 24 * 60 * 60 * 1000;
+  const diffDays = Math.round((expiry.getTime() - today.getTime()) / msInDay);
+
+  if (diffDays < 0) return "expired";
+  if (diffDays <= 3) return "soon";
+  return "fresh";
+}
+
+function getExpiryLabel(expiryDate: string): string {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const expiry = new Date(expiryDate);
+  expiry.setHours(0, 0, 0, 0);
+
+  const msInDay = 24 * 60 * 60 * 1000;
+  const diffDays = Math.round((expiry.getTime() - today.getTime()) / msInDay);
+
+  if (diffDays < 0) return "Expired";
+  if (diffDays === 0) return "Today";
+  if (diffDays === 1) return "1 day";
+  return `${diffDays} days`;
+}
+
+function toDisplayCategory(category: string): string {
+  const lowered = category.toLowerCase();
+  return lowered.charAt(0).toUpperCase() + lowered.slice(1);
+}
+
+export function ScanResultsScreen({ navigation, route }: Props) {
+  const apiItems = route.params?.items ?? [];
+  const items = apiItems.length > 0 ? apiItems : PANTRY.slice(0, 8);
+  const soonOrExpiredCount = apiItems.filter((item) => {
+    const status = getExpiryStatus(item.expiryDate);
+    return status === "soon" || status === "expired";
+  }).length;
 
   return (
     <AppScreen withBottomPad={false}>
@@ -30,31 +71,66 @@ export function ScanResultsScreen({ navigation }: Props) {
           <Sparkles size={13} color={colors.primary} />
           <Text style={styles.heroBadgeText}>Buddy says</Text>
         </View>
-        <Text style={styles.heroText}>I found 27 ingredients. 3 will expire this week.</Text>
+        <Text style={styles.heroText}>
+          {apiItems.length > 0
+            ? `I found ${apiItems.length} ingredients. ${soonOrExpiredCount} will expire soon.`
+            : "I found 27 ingredients. 3 will expire this week."}
+        </Text>
       </View>
 
       <Text style={styles.detectedTitle}>Detected · tap to edit</Text>
 
       <FlatList
         data={items}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item, index) => {
+          if ("id" in item) {
+            return item.id;
+          }
+          const apiItem = item as VisionExtractItem;
+          return `${apiItem.itemName}-${index}`;
+        }}
         numColumns={2}
         columnWrapperStyle={styles.gridRow}
         contentContainerStyle={styles.gridList}
         renderItem={({ item }) => (
           <View style={styles.card}>
-            <View style={styles.topIconRow}>
-              <Text style={styles.emoji}>{item.emoji}</Text>
-              <View style={styles.confChip}>
-                <Text style={styles.confText}>{Math.round((item.confidence ?? 1) * 100)}%</Text>
-              </View>
-            </View>
-            <Text style={styles.name}>{item.name}</Text>
-            <Text style={styles.meta}>{item.qty} · {item.category}</Text>
-            <View style={styles.bottomRow}>
-              <ExpiryBadge status={item.status} label={item.expiryLabel} />
-              <Pencil size={12} color={colors.muted} />
-            </View>
+            {"id" in item ? (
+              <>
+                <View style={styles.topIconRow}>
+                  <Text style={styles.emoji}>{item.emoji}</Text>
+                  <View style={styles.confChip}>
+                    <Text style={styles.confText}>{Math.round((item.confidence ?? 1) * 100)}%</Text>
+                  </View>
+                </View>
+                <Text style={styles.name}>{item.name}</Text>
+                <Text style={styles.meta}>{item.qty} · {item.category}</Text>
+                <View style={styles.bottomRow}>
+                  <ExpiryBadge status={item.status} label={item.expiryLabel} />
+                  <Pencil size={12} color={colors.muted} />
+                </View>
+              </>
+            ) : (
+              <>
+                <View style={styles.topIconRow}>
+                  <Text style={styles.emoji}>🥗</Text>
+                  <View style={styles.confChip}>
+                    <Text style={styles.confText}>AI</Text>
+                  </View>
+                </View>
+                <Text style={styles.name}>{(item as VisionExtractItem).itemName}</Text>
+                <Text style={styles.meta}>
+                  {(item as VisionExtractItem).quantity} {(item as VisionExtractItem).unit} ·{" "}
+                  {toDisplayCategory((item as VisionExtractItem).category)}
+                </Text>
+                <View style={styles.bottomRow}>
+                  <ExpiryBadge
+                    status={getExpiryStatus((item as VisionExtractItem).expiryDate)}
+                    label={getExpiryLabel((item as VisionExtractItem).expiryDate)}
+                  />
+                  <Pencil size={12} color={colors.muted} />
+                </View>
+              </>
+            )}
           </View>
         )}
       />
@@ -62,7 +138,9 @@ export function ScanResultsScreen({ navigation }: Props) {
       <View style={styles.footerBar}>
         <View style={styles.footerMeta}>
           <Text style={styles.footerHint}>Ready to add</Text>
-          <Text style={styles.footerTitle}>27 items to your pantry</Text>
+          <Text style={styles.footerTitle}>
+            {apiItems.length > 0 ? `${apiItems.length} items to your pantry` : "27 items to your pantry"}
+          </Text>
         </View>
         <Pressable style={styles.footerAction} onPress={() => navigation.replace("MainTabs", { screen: "Pantry" })}>
           <Check size={14} color="#F4FFF8" />
