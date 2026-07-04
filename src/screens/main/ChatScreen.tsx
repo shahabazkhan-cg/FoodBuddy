@@ -24,7 +24,7 @@ type Props = NativeStackScreenProps<RootStackParamList, "Chat">;
 
 export function ChatScreen({ navigation, route }: Props) {
   const initialQ = route.params?.q ?? "";
-  const [inputText, setInputText] = useState("give me butter chicken recipe");
+  const [inputText, setInputText] = useState("");
 
   const messages = useAppSelector((state) => state.chat.messages);
   const { sendMessage, cancelStream, isStreaming, error, resetChat } = useChatStream();

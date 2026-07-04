@@ -260,7 +260,7 @@ export function ScanScreen({ navigation }: Props) {
         uploadResult.items.length > 0
           ? `I scanned these items: ${uploadResult.items
               .map((item) => `${item.itemName} (${item.quantity} ${item.unit})`)
-              .join(", ")}. Suggest recipes I can make.`
+              .join(", ")}.`
           : "I scanned my fridge but no items were detected. Help me figure out what to do next.";
 
       navigation.replace("Chat", { q: chatInput });
