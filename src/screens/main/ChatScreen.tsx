@@ -9,10 +9,11 @@ import {
 } from "react-native";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Text } from "@rneui/themed";
-import { ArrowUp, ChevronLeft, Mic, Square } from "lucide-react-native";
+import { ArrowUp, Camera, ChevronLeft, Mic, Square } from "lucide-react-native";
 
 import type { RootStackParamList } from "../../navigation/types";
 import { AppScreen } from "../../components/AppScreen";
+import { MarkdownMessage } from "../../components/MarkdownMessage";
 import { PromptChip } from "../../components/PromptChip";
 import { RECIPES, SUGGESTED_PROMPTS } from "../../data/foodBuddyData";
 import { colors } from "../../theme/appTheme";
@@ -102,18 +103,17 @@ export function ChatScreen({ navigation, route }: Props) {
               {/* Message text — show typing dots while the assistant bubble is empty */}
               {msg.isStreaming && msg.content === "" ? (
                 <ActivityIndicator size="small" color={colors.muted} />
-              ) : (
-                <Text
-                  style={[
-                    styles.bubbleText,
-                    msg.role === "user" && styles.userBubbleText,
-                  ]}
-                >
+              ) : msg.role === "user" ? (
+                <Text style={[styles.bubbleText, styles.userBubbleText]}>
                   {msg.content}
+                </Text>
+              ) : (
+                <>
+                  <MarkdownMessage content={msg.content} />
                   {msg.isStreaming ? (
                     <Text style={styles.streamCursor}>▋</Text>
                   ) : null}
-                </Text>
+                </>
               )}
 
               {/* Optional recipe card attached to an AI message */}
@@ -179,6 +179,9 @@ export function ChatScreen({ navigation, route }: Props) {
           returnKeyType="send"
           editable={!isStreaming}
         />
+        <Pressable style={styles.softAction} onPress={() => navigation.navigate("Scan")}>
+          <Camera size={15} color={colors.text} />
+        </Pressable>
         <Pressable style={styles.softAction}>
           <Mic size={15} color={colors.text} />
         </Pressable>

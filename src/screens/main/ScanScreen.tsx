@@ -1,8 +1,19 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { ActivityIndicator, Alert, Image, Linking, Pressable, StyleSheet, View } from "react-native";
+import {
+  ActivityIndicator,
+  Alert,
+  Image,
+  Linking,
+  PermissionsAndroid,
+  Platform,
+  Pressable,
+  StyleSheet,
+  View,
+} from "react-native";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Text } from "@rneui/themed";
-import { Camera, RefreshCw, X } from "lucide-react-native";
+import { Camera, RefreshCw, Upload, X } from "lucide-react-native";
+import { launchImageLibrary } from "react-native-image-picker";
 import { callback } from "react-native-nitro-modules";
 import {
   NativePreviewView,
@@ -14,7 +25,7 @@ import {
   usePreviewOutput,
 } from "react-native-vision-camera";
 
-import type { RootStackParamList } from "../../navigation/types";
+import type { RootStackParamList, VisionExtractResponse } from "../../navigation/types";
 import { colors } from "../../theme/appTheme";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Scan">;
@@ -23,6 +34,12 @@ type CameraPreviewProps = {
   device: (ReturnType<typeof useCameraDevices>[number]);
   photoOutput: ReturnType<typeof usePhotoOutput>;
   previewOutput: ReturnType<typeof usePreviewOutput>;
+};
+
+type SelectedImage = {
+  uri: string;
+  name: string;
+  type: string;
 };
 
 function CameraPreview({ device, photoOutput, previewOutput }: CameraPreviewProps) {
@@ -50,6 +67,7 @@ export function ScanScreen({ navigation }: Props) {
   const [isRequestingPermission, setIsRequestingPermission] = useState(false);
   const [isCapturing, setIsCapturing] = useState(false);
   const [capturedPath, setCapturedPath] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<SelectedImage | null>(null);
 
   const backDevice = useCameraDevice("back");
   const devices = useCameraDevices();
@@ -86,12 +104,69 @@ export function ScanScreen({ navigation }: Props) {
     try {
       const photo = await photoOutput.capturePhotoToFile({ flashMode: "off" }, {});
       setCapturedPath(photo.filePath);
+      setSelectedImage(null);
     } catch {
       Alert.alert("Capture failed", "Could not capture photo. Please try again.");
     } finally {
       setIsCapturing(false);
     }
   }, [photoOutput]);
+
+  const requestGalleryPermission = useCallback(async () => {
+    if (Platform.OS !== "android") {
+      return true;
+    }
+
+    const permission =
+      Platform.Version >= 33
+        ? PermissionsAndroid.PERMISSIONS.READ_MEDIA_IMAGES
+        : PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE;
+
+    const granted = await PermissionsAndroid.request(permission);
+    return granted === PermissionsAndroid.RESULTS.GRANTED;
+  }, []);
+
+  const pickImageFromLibrary = useCallback(async () => {
+    try {
+      const hasGalleryPermission = await requestGalleryPermission();
+      if (!hasGalleryPermission) {
+        Alert.alert("Permission required", "Allow photo access to upload an image from gallery.");
+        return;
+      }
+
+      const result = await launchImageLibrary({
+        mediaType: "photo",
+        selectionLimit: 1,
+      });
+
+      if (result.didCancel) {
+        return;
+      }
+
+      if (result.errorCode) {
+        Alert.alert(
+          "Image selection failed",
+          `${result.errorCode}${result.errorMessage ? `: ${result.errorMessage}` : ""}`,
+        );
+        return;
+      }
+
+      const asset = result.assets?.[0];
+      if (!asset?.uri) {
+        Alert.alert("Image selection failed", "Could not read selected image.");
+        return;
+      }
+
+      setCapturedPath(null);
+      setSelectedImage({
+        uri: asset.uri,
+        name: asset.fileName ?? "fridge.jpg",
+        type: asset.type ?? "image/jpeg",
+      });
+    } catch {
+      Alert.alert("Image selection failed", "Could not pick image from gallery.");
+    }
+  }, [requestGalleryPermission]);
 
   const openSettings = useCallback(async () => {
     try {
@@ -103,13 +178,101 @@ export function ScanScreen({ navigation }: Props) {
 
   const retake = useCallback(() => {
     setCapturedPath(null);
+    setSelectedImage(null);
   }, []);
 
-  const continueToResults = useCallback(() => {
-    navigation.replace("ScanResults");
-  }, [navigation]);
+  const previewUri = useMemo(() => {
+    if (selectedImage?.uri) {
+      return selectedImage.uri;
+    }
 
-  if (capturedPath) {
+    if (capturedPath) {
+      return capturedPath.startsWith("file://") ? capturedPath : `file://${capturedPath}`;
+    }
+
+    return null;
+  }, [capturedPath, selectedImage]);
+
+  const [isUploading, setIsUploading] = useState(false);
+
+  const continueToResults = useCallback(async () => {
+    if (!previewUri) return;
+    setIsUploading(true);
+    try {
+      const uri = previewUri;
+      console.log("Uploading image from URI:", uri, selectedImage);
+      const imageName = selectedImage?.name ?? "fridge.jpg";
+      const imageType = selectedImage?.type ?? "image/jpeg";
+
+      // Log image size metadata before upload for debugging.
+      try {
+        const localResponse = await fetch(uri);
+        const localBlob = await localResponse.blob();
+        console.log("Captured image size (bytes):", localBlob.size);
+      } catch (sizeError) {
+        console.warn("Could not read image byte size:", sizeError);
+      }
+
+      Image.getSize(
+        uri,
+        (width, height) => {
+          console.log("Captured image dimensions:", { width, height });
+        },
+        (dimensionError) => {
+          console.warn("Could not read image dimensions:", dimensionError);
+        },
+      );
+
+      const formData = new FormData();
+      formData.append("file", {
+        uri,
+        type: imageType,
+        name: imageName,
+      } as any);
+
+      const uploadResult = await new Promise<VisionExtractResponse>((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open(
+          "POST",
+          "https://java-pantry-asfgc7dvhadjdecz.westeurope-01.azurewebsites.net/api/ai/vision/extract-save",
+        );
+        xhr.onload = () => {
+          console.log("Upload response status:", xhr.status);
+          console.log("Upload response headers:", xhr.getAllResponseHeaders());
+          console.log("Upload response body:", xhr.responseText);
+
+          if (xhr.status >= 200 && xhr.status < 300) {
+            try {
+              const parsed = JSON.parse(xhr.responseText) as VisionExtractResponse;
+              resolve({ items: Array.isArray(parsed?.items) ? parsed.items : [] });
+            } catch {
+              resolve({ items: [] });
+            }
+          } else {
+            reject(new Error(`Upload failed with status ${xhr.status}: ${xhr.responseText}`));
+          }
+        };
+        xhr.onerror = () => reject(new Error("Network error during upload"));
+        xhr.send(formData);
+      });
+
+      const chatInput =
+        uploadResult.items.length > 0
+          ? `I scanned these items: ${uploadResult.items
+              .map((item) => `${item.itemName} (${item.quantity} ${item.unit})`)
+              .join(", ")}. Suggest recipes I can make.`
+          : "I scanned my fridge but no items were detected. Help me figure out what to do next.";
+
+      navigation.replace("Chat", { q: chatInput });
+    } catch (e) {
+      console.error("Upload error:", e);
+      Alert.alert("Upload failed", "Could not upload the image. Please try again.");
+    } finally {
+      setIsUploading(false);
+    }
+  }, [navigation, previewUri, selectedImage]);
+
+  if (previewUri) {
     return (
       <View style={styles.root}>
         <View style={styles.topRow}>
@@ -121,7 +284,7 @@ export function ScanScreen({ navigation }: Props) {
         </View>
 
         <View style={styles.previewFrame}>
-          <Image source={{ uri: `file://${capturedPath}` }} style={styles.previewImage} resizeMode="cover" />
+          <Image source={{ uri: previewUri }} style={styles.previewImage} resizeMode="cover" />
         </View>
 
         <View style={styles.bottomActions}>
@@ -129,8 +292,16 @@ export function ScanScreen({ navigation }: Props) {
             <RefreshCw size={15} color={colors.text} />
             <Text style={styles.secondaryActionText}>Retake</Text>
           </Pressable>
-          <Pressable style={styles.primaryAction} onPress={continueToResults}>
-            <Text style={styles.primaryActionText}>Continue</Text>
+          <Pressable
+            style={[styles.primaryAction, isUploading && styles.actionDisabled]}
+            onPress={continueToResults}
+            disabled={isUploading}
+          >
+            {isUploading ? (
+              <ActivityIndicator color="#F4FFF8" />
+            ) : (
+              <Text style={styles.primaryActionText}>Continue</Text>
+            )}
           </Pressable>
         </View>
       </View>
@@ -207,6 +378,10 @@ export function ScanScreen({ navigation }: Props) {
         >
           {isCapturing ? <ActivityIndicator color="#F4FFF8" /> : <Text style={styles.captureButtonText}>Capture</Text>}
         </Pressable>
+        <Pressable style={styles.uploadAction} onPress={pickImageFromLibrary}>
+          <Upload size={15} color={colors.text} />
+          <Text style={styles.uploadActionText}>Upload Image</Text>
+        </Pressable>
       </View>
     </View>
   );
@@ -280,6 +455,23 @@ const styles = StyleSheet.create({
   captureButtonText: {
     color: "#F4FFF8",
     fontSize: 15,
+    fontWeight: "700",
+  },
+  uploadAction: {
+    minHeight: 46,
+    borderRadius: 999,
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.9)",
+    backgroundColor: "rgba(255, 255, 255, .9)",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
+    paddingHorizontal: 14,
+  },
+  uploadActionText: {
+    color: colors.text,
+    fontSize: 14,
     fontWeight: "700",
   },
   permissionCard: {

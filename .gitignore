@@ -109,3 +109,5 @@ android/.gradle/8.14.3/checksums/checksums.lock
 android/.gradle/8.14.3/checksums/checksums.lock
 android/.gradle/8.14.3/fileHashes/fileHashes.lock
 android/.gradle/buildOutputCleanup/buildOutputCleanup.lock
+android/.DS_Store
+.tool-versions
