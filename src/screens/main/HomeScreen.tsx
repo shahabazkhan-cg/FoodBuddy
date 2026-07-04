@@ -20,6 +20,7 @@ import type { MainTabParamList, RootStackParamList } from "../../navigation/type
 import { AppScreen } from "../../components/AppScreen";
 import { PromptChip } from "../../components/PromptChip";
 import { SUGGESTED_PROMPTS } from "../../data/foodBuddyData";
+import { useAppSelector } from "../../store/hooks";
 import { colors } from "../../theme/appTheme";
 
 type Props = BottomTabScreenProps<MainTabParamList, "Home">;
@@ -49,24 +50,35 @@ export function HomeScreen(_props: Props) {
   const navigation = useNavigation<RootNav>();
   const tabNavigation = _props.navigation;
   const [captureOpen, setCaptureOpen] = useState(false);
+  const selectedUserId = useAppSelector((state) => state.auth.user_id);
+  const selectedUserName = selectedUserId
+    ? selectedUserId
+        .replace(/^user_/, "")
+        .split("_")
+        .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+        .join(" ")
+    : "there";
+  const avatarInitial = selectedUserId
+    ? selectedUserName.charAt(0).toUpperCase()
+    : "U";
 
   return (
     <AppScreen>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.topRow}>
           <Pressable style={styles.avatar} onPress={() => navigation.navigate("Profile")}>
-            <Text style={styles.avatarText}>S</Text>
+            <Text style={styles.avatarText}>{avatarInitial}</Text>
           </Pressable>
           <View>
             <Text style={styles.smallMuted}>Good evening</Text>
-            <Text style={styles.greeting}>Hi Sarvaa</Text>
+            <Text style={styles.greeting}>Hi {selectedUserName}</Text>
           </View>
           <View style={styles.spacer} />
         </View>
 
         <Text style={styles.heroTitle}>What are we cooking tonight?</Text>
 
-        <Card containerStyle={styles.heroCard}>
+        {/* <Card containerStyle={styles.heroCard}>
           <View style={styles.heroBadge}>
             <Sparkles size={13} color={colors.primary} />
             <Text style={styles.heroBadgeText}>Buddy already knows</Text>
@@ -74,7 +86,7 @@ export function HomeScreen(_props: Props) {
           <Text style={styles.heroLine}>Your pantry has 24 ingredients</Text>
           <Text style={styles.heroLine}>3 ingredients expire tomorrow</Text>
           <Text style={styles.heroLine}>You can prepare 18 meals now</Text>
-        </Card>
+        </Card> */}
 
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.promptsRow}>
           {SUGGESTED_PROMPTS.map((prompt) => (
@@ -90,13 +102,13 @@ export function HomeScreen(_props: Props) {
           <QuickAction
             emoji="🥑"
             title="My pantry"
-            meta="24 items · 92 score"
+            meta=""
             onPress={() => tabNavigation.navigate("Pantry")}
           />
           <QuickAction
             emoji="📅"
             title="Meal plan"
-            meta="5 of 7 dinners"
+            meta=""
             onPress={() => tabNavigation.navigate("Meals")}
           />
         </View>

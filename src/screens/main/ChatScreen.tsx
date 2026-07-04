@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -24,7 +26,7 @@ type Props = NativeStackScreenProps<RootStackParamList, "Chat">;
 
 export function ChatScreen({ navigation, route }: Props) {
   const initialQ = route.params?.q ?? "";
-  const [inputText, setInputText] = useState("give me butter chicken recipe");
+  const [inputText, setInputText] = useState("");
 
   const messages = useAppSelector((state) => state.chat.messages);
   const { sendMessage, cancelStream, isStreaming, error, resetChat } = useChatStream();
@@ -79,132 +81,141 @@ export function ChatScreen({ navigation, route }: Props) {
         <View style={styles.headerSpacer} />
       </View>
 
-      {/* ── Message list ───────────────────────────────────────────────────── */}
-      <ScrollView
-        ref={scrollRef}
-        style={styles.chatArea}
-        contentContainerStyle={styles.chatContent}
-        keyboardShouldPersistTaps="handled"
+      <KeyboardAvoidingView
+        style={styles.keyboardContainer}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 8 : 25}
       >
-        {messages.map((msg) => (
-          <View
-            key={msg.id}
-            style={[
-              styles.bubbleRow,
-              msg.role === "user" ? styles.rightAlign : styles.leftAlign,
-            ]}
-          >
+        {/* ── Message list ───────────────────────────────────────────────────── */}
+        <ScrollView
+          ref={scrollRef}
+          style={styles.chatArea}
+          contentContainerStyle={styles.chatContent}
+          keyboardShouldPersistTaps="handled"
+        >
+          {messages.map((msg) => (
             <View
+              key={msg.id}
               style={[
-                styles.bubble,
-                msg.role === "user" ? styles.userBubble : styles.aiBubble,
+                styles.bubbleRow,
+                msg.role === "user" ? styles.rightAlign : styles.leftAlign,
               ]}
             >
-              {/* Message text — show typing dots while the assistant bubble is empty */}
-              {msg.isStreaming && msg.content === "" ? (
-                <ActivityIndicator size="small" color={colors.muted} />
-              ) : msg.role === "user" ? (
-                <Text style={[styles.bubbleText, styles.userBubbleText]}>
-                  {msg.content}
-                </Text>
-              ) : (
-                <>
-                  <MarkdownMessage content={msg.content} />
-                  {msg.isStreaming ? (
-                    <Text style={styles.streamCursor}>▋</Text>
-                  ) : null}
-                </>
-              )}
-
-              {/* Optional recipe card attached to an AI message */}
-              {msg.recipeId ? (
-                <Pressable
-                  style={styles.recipeCard}
-                  onPress={() =>
-                    navigation.navigate("Recipe", {
-                      id: msg.recipeId as string,
-                    })
-                  }
-                >
-                  <Text style={styles.recipeEmoji}>
-                    {resolveRecipe(msg.recipeId).emoji}
+              <View
+                style={[
+                  styles.bubble,
+                  msg.role === "user" ? styles.userBubble : styles.aiBubble,
+                ]}
+              >
+                {/* Message text — show typing dots while the assistant bubble is empty */}
+                {msg.isStreaming && msg.content === "" ? (
+                  <ActivityIndicator size="small" color={colors.muted} />
+                ) : msg.role === "user" ? (
+                  <Text style={[styles.bubbleText, styles.userBubbleText]}>
+                    {msg.content}
                   </Text>
-                  <View style={styles.recipeMeta}>
-                    <Text style={styles.recipeTitle}>
-                      {resolveRecipe(msg.recipeId).title}
+                ) : (
+                  <>
+                    <MarkdownMessage content={msg.content} />
+                    {msg.isStreaming ? (
+                      <Text style={styles.streamCursor}>▋</Text>
+                    ) : null}
+                  </>
+                )}
+
+                {/* Optional recipe card attached to an AI message */}
+                {msg.recipeId ? (
+                  <Pressable
+                    style={styles.recipeCard}
+                    onPress={() =>
+                      navigation.navigate("Recipe", {
+                        id: msg.recipeId as string,
+                      })
+                    }
+                  >
+                    <Text style={styles.recipeEmoji}>
+                      {resolveRecipe(msg.recipeId).emoji}
                     </Text>
-                    <Text style={styles.recipeHint}>
-                      {resolveRecipe(msg.recipeId).minutes} min ·{" "}
-                      {resolveRecipe(msg.recipeId).kcal} kcal ·{" "}
-                      {resolveRecipe(msg.recipeId).uses}/
-                      {resolveRecipe(msg.recipeId).total} pantry
-                    </Text>
-                  </View>
-                </Pressable>
-              ) : null}
+                    <View style={styles.recipeMeta}>
+                      <Text style={styles.recipeTitle}>
+                        {resolveRecipe(msg.recipeId).title}
+                      </Text>
+                      <Text style={styles.recipeHint}>
+                        {resolveRecipe(msg.recipeId).minutes} min ·{" "}
+                        {resolveRecipe(msg.recipeId).kcal} kcal ·{" "}
+                        {resolveRecipe(msg.recipeId).uses}/
+                        {resolveRecipe(msg.recipeId).total} pantry
+                      </Text>
+                    </View>
+                  </Pressable>
+                ) : null}
+              </View>
             </View>
-          </View>
-        ))}
+          ))}
 
-        {/* Error banner */}
-        {error ? (
-          <View style={styles.errorBanner}>
-            <Text style={styles.errorText}>{error}</Text>
-          </View>
-        ) : null}
+          {/* Error banner */}
+          {error ? (
+            <View style={styles.errorBanner}>
+              <Text style={styles.errorText}>{error}</Text>
+            </View>
+          ) : null}
 
-        {/* Suggested prompt chips — hidden while streaming */}
-        {!isStreaming && (
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {SUGGESTED_PROMPTS.slice(0, 4).map((prompt) => (
-              <PromptChip
-                key={prompt}
-                label={prompt}
-                onPress={() => handlePromptChip(prompt)}
-              />
-            ))}
-          </ScrollView>
-        )}
-      </ScrollView>
+          {/* Suggested prompt chips — hidden while streaming */}
+          {!isStreaming && (
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              {SUGGESTED_PROMPTS.slice(0, 4).map((prompt) => (
+                <PromptChip
+                  key={prompt}
+                  label={prompt}
+                  onPress={() => handlePromptChip(prompt)}
+                />
+              ))}
+            </ScrollView>
+          )}
+        </ScrollView>
 
-      {/* ── Input bar ──────────────────────────────────────────────────────── */}
-      <View style={styles.inputBar}>
-        <TextInput
-          value={inputText}
-          onChangeText={setInputText}
-          onSubmitEditing={handleSend}
-          placeholder="Ask Buddy anything..."
-          placeholderTextColor={colors.muted}
-          style={styles.input}
-          returnKeyType="send"
-          editable={!isStreaming}
-        />
-        <Pressable style={styles.softAction} onPress={() => navigation.navigate("Scan")}>
-          <Camera size={15} color={colors.text} />
-        </Pressable>
-        <Pressable style={styles.softAction}>
-          <Mic size={15} color={colors.text} />
-        </Pressable>
-        {isStreaming ? (
-          // Stop button — cancels the in-flight SSE stream
-          <Pressable style={styles.stopAction} onPress={cancelStream}>
-            <Square size={14} color="#F4FFF8" fill="#F4FFF8" />
+        {/* ── Input bar ──────────────────────────────────────────────────────── */}
+        <View style={styles.inputBar}>
+          <TextInput
+            value={inputText}
+            onChangeText={setInputText}
+            onSubmitEditing={handleSend}
+            placeholder="Ask Buddy anything..."
+            placeholderTextColor={colors.muted}
+            style={styles.input}
+            returnKeyType="send"
+            editable={!isStreaming}
+          />
+          <Pressable style={styles.softAction} onPress={() => navigation.navigate("Scan")}>
+            <Camera size={15} color={colors.text} />
           </Pressable>
-        ) : (
-          <Pressable
-            style={[styles.primaryAction, !inputText.trim() && styles.primaryActionDisabled]}
-            onPress={handleSend}
-            disabled={!inputText.trim()}
-          >
-            <ArrowUp size={15} color="#F4FFF8" />
+          <Pressable style={styles.softAction}>
+            <Mic size={15} color={colors.text} />
           </Pressable>
-        )}
-      </View>
+          {isStreaming ? (
+            // Stop button — cancels the in-flight SSE stream
+            <Pressable style={styles.stopAction} onPress={cancelStream}>
+              <Square size={14} color="#F4FFF8" fill="#F4FFF8" />
+            </Pressable>
+          ) : (
+            <Pressable
+              style={[styles.primaryAction, !inputText.trim() && styles.primaryActionDisabled]}
+              onPress={handleSend}
+              disabled={!inputText.trim()}
+            >
+              <ArrowUp size={15} color="#F4FFF8" />
+            </Pressable>
+          )}
+        </View>
+      </KeyboardAvoidingView>
     </AppScreen>
   );
 }
 
 const styles = StyleSheet.create({
+  keyboardContainer: {
+    flex: 1,
+  },
   header: {
     marginTop: 6,
     flexDirection: "row",

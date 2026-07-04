@@ -42,7 +42,7 @@ export default function App() {
             <NavigationContainer theme={navTheme}>
               <StatusBar barStyle="light-content" />
               <RootNavigator />
-              {__DEV__ && <DebugConsole />}
+              {/* {__DEV__ && <DebugConsole />} */}
             </NavigationContainer>
           </QueryClientProvider>
         </ThemeProvider>
