@@ -8,6 +8,7 @@ import { clearAnswers } from "../../store/slices/onboardingSlice";
 
 import type { RootStackParamList } from "../../navigation/types";
 import { AppScreen } from "../../components/AppScreen";
+import { useAppSelector } from "../../store/hooks";
 import { colors } from "../../theme/appTheme";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Profile">;
@@ -45,8 +46,19 @@ function Row({
 }
 
 export function ProfileScreen({ navigation }: Props) {
-
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const user = useAppSelector((state) => state.auth.user);
+  const selectedUserId = useAppSelector((state) => state.auth.user_id);
+  const selectedUserName = selectedUserId
+    ? selectedUserId
+        .replace(/^user_/, "")
+        .split("_")
+        .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+        .join(" ")
+    : user?.name ?? "User";
+  const firstNameInitial = selectedUserName.charAt(0).toUpperCase();
+  const userEmail = user?.email ?? "user@example.com";
+  const familySize = user?.familySize ?? 1;
 
   return (
     <AppScreen withBottomPad={false}>
@@ -60,10 +72,10 @@ const dispatch = useDispatch();
 
       <View style={styles.centerBlock}>
         <View style={styles.avatar}>
-          <Text style={styles.avatarText}>S</Text>
+          <Text style={styles.avatarText}>{firstNameInitial}</Text>
         </View>
-        <Text style={styles.name}>Sarvaa Patel</Text>
-        <Text style={styles.email}>sarvaa@foodbuddy.app · Family of 4</Text>
+        <Text style={styles.name}>{selectedUserName}</Text>
+        <Text style={styles.email}>{userEmail} · Family of {familySize}</Text>
       </View>
 
       <View style={styles.statsRow}>

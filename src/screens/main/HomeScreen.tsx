@@ -20,6 +20,7 @@ import type { MainTabParamList, RootStackParamList } from "../../navigation/type
 import { AppScreen } from "../../components/AppScreen";
 import { PromptChip } from "../../components/PromptChip";
 import { SUGGESTED_PROMPTS } from "../../data/foodBuddyData";
+import { useAppSelector } from "../../store/hooks";
 import { colors } from "../../theme/appTheme";
 
 type Props = BottomTabScreenProps<MainTabParamList, "Home">;
@@ -49,17 +50,28 @@ export function HomeScreen(_props: Props) {
   const navigation = useNavigation<RootNav>();
   const tabNavigation = _props.navigation;
   const [captureOpen, setCaptureOpen] = useState(false);
+  const selectedUserId = useAppSelector((state) => state.auth.user_id);
+  const selectedUserName = selectedUserId
+    ? selectedUserId
+        .replace(/^user_/, "")
+        .split("_")
+        .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+        .join(" ")
+    : "there";
+  const avatarInitial = selectedUserId
+    ? selectedUserName.charAt(0).toUpperCase()
+    : "U";
 
   return (
     <AppScreen>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.topRow}>
           <Pressable style={styles.avatar} onPress={() => navigation.navigate("Profile")}>
-            <Text style={styles.avatarText}>S</Text>
+            <Text style={styles.avatarText}>{avatarInitial}</Text>
           </Pressable>
           <View>
             <Text style={styles.smallMuted}>Good evening</Text>
-            <Text style={styles.greeting}>Hi Deepak</Text>
+            <Text style={styles.greeting}>Hi {selectedUserName}</Text>
           </View>
           <View style={styles.spacer} />
         </View>
