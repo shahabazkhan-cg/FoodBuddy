@@ -24,6 +24,7 @@ const USERS = [
   { id: "user_roshan", name: "Roshan" },
   { id: "user_shahbaz", name: "Shahbaz" },
   { id: "user_hemanth", name: "Hemanth" },
+  { id: "user_guest", name: "Guest" },
 ];
 
 function Feature({
@@ -142,6 +143,16 @@ export function LoginScreen({ navigation }: Props) {
         </View>
 
         <View style={styles.actions}>
+          <Button
+            title="Login as guest"
+            buttonStyle={styles.primaryBtn}
+            onPress={() => {
+                setSelectedUserId("user_guest");
+                dispatch(setUserId("user_guest"));
+                setShowUserDropdown(false);
+                navigation.navigate("Onboarding")
+            }}
+          />
           <Text style={styles.terms}>
             By continuing you agree to our Terms and Privacy.
           </Text>
