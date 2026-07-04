@@ -1,6 +1,8 @@
 import React, { useMemo, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 import { Button, LinearProgress, Text } from "@rneui/themed";
+// @ts-ignore - react-native-vector-icons doesn't have full TypeScript support
+import FeatherIcon from "react-native-vector-icons/Feather";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import LottieView from "lottie-react-native";
 import { ChevronLeft } from "lucide-react-native";

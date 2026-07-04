@@ -2,6 +2,9 @@ import React from "react";
 import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Button, Text } from "@rneui/themed";
+import FontAwesome5 from "@react-native-vector-icons/fontawesome5";
+// @ts-ignore - react-native-vector-icons doesn't have full TypeScript support
+import FeatherIcon from "react-native-vector-icons/Feather";
 import LottieView from "lottie-react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
@@ -134,6 +137,9 @@ const styles = StyleSheet.create({
   actions: {
     marginTop: 24,
     gap: 10,
+  },
+  buttonIcon: {
+    marginRight: 8,
   },
   appleBtn: {
     backgroundColor: colors.text,
