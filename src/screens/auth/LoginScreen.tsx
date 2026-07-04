@@ -12,6 +12,7 @@ import { AppScreen } from "../../components/AppScreen";
 import { colors } from "../../theme/appTheme";
 import { useAppDispatch } from "../../store/hooks";
 import { setUserId } from "../../store/slices/authSlice";
+import { clearChat } from "../../store/slices/chatSlice";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Login">;
 
@@ -56,6 +57,8 @@ export function LoginScreen({ navigation }: Props) {
   const handleUserSelect = (user_id: string) => {
     setSelectedUserId(user_id);
     dispatch(setUserId(user_id));
+    // Clear the previous conversation/session so the new user starts fresh.
+    dispatch(clearChat());
     setShowUserDropdown(false);
     navigation.navigate("MainTabs"); // Navigate to Home after selecting a user
   };
