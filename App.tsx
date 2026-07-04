@@ -1,45 +1,39 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import "react-native-gesture-handler";
+import React from "react";
+import { StatusBar } from "react-native";
+import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { ThemeProvider } from "@rneui/themed";
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+import { RootNavigator } from "./src/navigation/RootNavigator";
+import { appTheme } from "./src/theme/appTheme";
 
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+const queryClient = new QueryClient();
 
+const navTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: "#0B0F0D",
+    card: "#111714",
+    text: "#E9F2EC",
+    border: "#1C2A22",
+    primary: "#3FBF6F",
+  },
+};
+
+export default function App() {
   return (
     <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
+      <ThemeProvider theme={appTheme}>
+        <QueryClientProvider client={queryClient}>
+          <NavigationContainer theme={navTheme}>
+            <StatusBar barStyle="light-content" />
+            <RootNavigator />
+          </NavigationContainer>
+        </QueryClientProvider>
+      </ThemeProvider>
     </SafeAreaProvider>
   );
 }
-
-function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
-
-  return (
-    <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
-      />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
-
-export default App;
