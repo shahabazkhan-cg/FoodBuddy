@@ -1,23 +1,21 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
-import type { ApiUser, AuthResponse } from "../api/types";
+import { createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import type { ApiUser, AuthResponse } from '../api/types';
 
 export interface AuthState {
   user: ApiUser | null;
   token: string | null;
   isAuthenticated: boolean;
-  user_id: string | null;
 }
 
 const initialState: AuthState = {
   user: null,
   token: null,
   isAuthenticated: false,
-  user_id: null,
 };
 
 const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
     /** Store credentials returned after a successful login. */
@@ -32,16 +30,9 @@ const authSlice = createSlice({
       state.user = null;
       state.token = null;
       state.isAuthenticated = false;
-      state.user_id = null;
-    },
-
-    /** Set the selected user ID. */
-    setUserId: (state, action: PayloadAction<string>) => {
-      state.user_id = action.payload;
     },
   },
 });
 
-export const { setCredentials, clearCredentials, setUserId } =
-  authSlice.actions;
+export const { setCredentials, clearCredentials } = authSlice.actions;
 export default authSlice.reducer;
